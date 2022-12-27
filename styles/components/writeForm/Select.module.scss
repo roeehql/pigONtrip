@@ -1,0 +1,19 @@
+@use '../../style.scss';
+.select_box{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    .select_div{
+        display: flex;
+        cursor: pointer;
+        .label{
+            letter-spacing: -0.7px;
+            cursor: pointer;
+        }
+        .select_radio{
+            cursor: pointer;
+        }
+    }
+    .select_div:hover{
+        background-color: style.$wide-blue;
+    }
+}
