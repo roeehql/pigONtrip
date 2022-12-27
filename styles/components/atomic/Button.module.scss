@@ -1,0 +1,39 @@
+@use "../../style.scss";
+
+.small_button{
+    flex-wrap: nowrap;
+    min-width: 80px;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: style.$point-blue;
+    cursor: pointer;
+}
+.small_button:hover{
+    background-color: style.$wide-blue;
+}
+
+.big_button{
+    width: fit-content;
+    height: fit-content;
+    padding: 16px 32px;
+    margin: 20px 0px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px #bdbdbd;
+    font-weight: 400;
+    font-size: 1.2em;
+    letter-spacing: -2px;
+    color: #fff;
+    background-color: style.$point-blue;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.big_button:hover{
+    background-color: style.$wide-blue;
+}
