@@ -1,0 +1,25 @@
+@use '../../style.scss';
+
+@mixin display-items($direction : column , $justify : center , $align : center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+  }
+
+.writeForm_container{
+    @include display-items();
+    width: 50vw;
+    margin: 16px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #222f3e;
+    .writeForm_select_country{
+        @include display-items();
+    }
+    .writeForm_select_date{
+        @include display-items();
+    }
+    .writeForm_input_food{
+        @include display-items();
+    }
+}

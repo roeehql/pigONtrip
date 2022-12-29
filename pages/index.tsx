@@ -1,9 +1,7 @@
-import SelectCountry from "@components/contents/writeform/SelectCountry";
-import useSelectCountry from "@hooks/useSelectCountry";
 import Head from "next/head";
+import WriteForm from "@components/writeform/WriteForm";
 
 export default function Home() {
-  const { country, currencyCode, handleButtonClick } = useSelectCountry("");
   return (
     <>
       <Head>
@@ -16,7 +14,7 @@ export default function Home() {
         />
       </Head>
       <main>
-        <SelectCountry onClick={handleButtonClick} />
+        <WriteForm />
       </main>
     </>
   );
