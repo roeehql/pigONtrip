@@ -1,5 +1,6 @@
 import Head from "next/head";
 import WriteForm from "@components/writeform/WriteForm";
+import Contents from "@components/contents/Contents";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       </Head>
       <main>
         <WriteForm />
+        <Contents />
       </main>
     </>
   );

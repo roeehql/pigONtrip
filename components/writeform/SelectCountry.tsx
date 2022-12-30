@@ -20,9 +20,7 @@ const SelectCountry = ({
             onChange={onChange}
             value={[item.country, item.currencyCode]}
           />
-          <h4 className={styles.h4}>
-            {item.country} - {item.currencyName}
-          </h4>
+          <h4 className={styles.h4}>{item.country}</h4>
         </label>
       ))}
     </div>
