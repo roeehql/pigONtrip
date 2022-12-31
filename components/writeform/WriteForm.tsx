@@ -1,11 +1,14 @@
 import { useState } from "react";
 import useHandleSelect from "@hooks/useHandleSelect";
+import useHandleInput from "@hooks/useHandleInput";
+
 import SelectCountry from "./SelectCountry";
-import styles from "@styles/components/writeForm/WriteForm.module.scss";
 import Button from "@components/atomic/Button";
 import SelectDate from "./SelectDate";
 import Input from "@components/atomic/Input";
-import useHandleInput from "@hooks/useHandleInput";
+
+import styles from "@styles/components/writeForm/WriteForm.module.scss";
+import FormSkeleton from "./formSkeleton";
 
 const WriteForm = () => {
   const [page, setPage] = useState(1);
@@ -34,6 +37,8 @@ const WriteForm = () => {
 
   return (
     <div className={styles.writeForm_container}>
+      {page === 0 && <FormSkeleton />}
+
       {page === 1 && (
         <div className={styles.writeForm_select_country}>
           <SelectCountry onChange={handleCountryClick} />
