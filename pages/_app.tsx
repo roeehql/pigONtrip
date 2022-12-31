@@ -11,9 +11,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Header />
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
+          <Header />
           <Component {...pageProps} />;
         </QueryClientProvider>
       </Provider>

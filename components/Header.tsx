@@ -1,7 +1,10 @@
 import Link from "next/link";
 import styles from "@styles/components/Header.module.scss";
+import { useAppSelector } from "@store/store";
 
 const Header = () => {
+  const userName = useAppSelector((state) => state.userName.value);
+
   return (
     <nav className={styles.header_nav}>
       <ul className={styles.header_first_ul}>
@@ -12,7 +15,7 @@ const Header = () => {
         </Link>
         <Link href={"/mypage"}>
           <li className={styles.header_li}>
-            <h4>🐽여기도</h4>
+            <h4>🐽{userName}님</h4>
           </li>
         </Link>
       </ul>
