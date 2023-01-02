@@ -30,22 +30,4 @@
             border: 2px solid style.$main-yellow;
         }
     }
-    .form_skeleton{
-        @include display-items();
-        width: 100%;
-        height: 100%;
-        .formbox_skeleton{
-            width: 90%;
-            height: 200px;
-            border-radius: 20px;
-            background-color: #e0e0e0;
-        }
-     .button_skeleton{
-            width: 100px;
-            height: 60px;
-            margin-top: 20px;
-            border-radius: 20px;
-            background-color: #e0e0e0;
-        }   
-    }
 }
