@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@store/store";
 import { editUserName, removeUserName } from "@store/userNameSlice";
 import { USER_NAME } from "util/constant/query.constant";
 import Head from "next/head";
+import { getItem, resetItem } from "@store/contentsSlice";
 
 const MyPage: NextPage = () => {
   const userName = useAppSelector((state) => state.userName.value);
@@ -27,6 +28,7 @@ const MyPage: NextPage = () => {
     if (checkUSer) {
       dispatch(removeUserName());
       localStorage.clear();
+      dispatch(resetItem());
     } else {
       return false;
     }

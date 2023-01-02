@@ -1,16 +1,25 @@
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
 import useHandleSelect from "@hooks/useHandleSelect";
 import useHandleInput from "@hooks/useHandleInput";
 
-import SelectCountry from "./SelectCountry";
+import { useAppDispatch } from "@store/store";
+import { addItem, ContentsSliceState, saveItem } from "@store/contentsSlice";
+
+import { v4 as uuidv4 } from "uuid";
+import { FiArrowRight } from "react-icons/fi";
+
+const SelectCountry = dynamic(() => import("./SelectCountry"));
 import Button from "@components/atomic/Button";
-import SelectDate from "./SelectDate";
+const SelectDate = dynamic(() => import("./SelectDate"));
 import Input from "@components/atomic/Input";
 
 import styles from "@styles/components/writeForm/WriteForm.module.scss";
-import FormSkeleton from "./formSkeleton";
+import { useGetCurrency } from "@hooks/useGetCurrency";
 
 const WriteForm = () => {
+  const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
   const [exchangedMoney, setExchangedMoney] = useState(0);
   const {
@@ -31,14 +40,37 @@ const WriteForm = () => {
     setValue: setFoodExpense,
   } = useHandleInput("");
 
+  const exchangeRate = useGetCurrency({ date: tripDate, code: currencyCode });
+
   const handlePage = (index: number) => {
     setPage(index);
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const content: ContentsSliceState = {
+      id: uuidv4(),
+      food,
+      foodExpense,
+      country,
+      currencyCode,
+      tripDate,
+      exchangedMoney,
+      star: 5,
+    };
+    dispatch(addItem(content));
+    dispatch(saveItem());
+    setFood("");
+    setFoodExpense("");
+    setPage(1);
+  };
+
+  useEffect(() => {
+    setExchangedMoney(Math.round(exchangeRate * parseInt(foodExpense)));
+  }, [exchangeRate, foodExpense]);
+
   return (
     <div className={styles.writeForm_container}>
-      {page === 0 && <FormSkeleton />}
-
       {page === 1 && (
         <div className={styles.writeForm_select_country}>
           <SelectCountry onChange={handleCountryClick} />
@@ -70,7 +102,7 @@ const WriteForm = () => {
         </div>
       )}
       {page === 3 && (
-        <div className={styles.writeForm_input_food}>
+        <form className={styles.writeForm_input_food} onSubmit={handleSubmit}>
           <Input
             type={"text"}
             labelText={"음식을 입력하세요."}
@@ -79,20 +111,23 @@ const WriteForm = () => {
             onChange={onFoodChange}
             required={true}
           />
-          <Input
-            type={"text"}
-            labelText={"금액을 입력하세요."}
-            name={"foodExpense"}
-            value={foodExpense}
-            onChange={onFoodExpenseChange}
-            required={true}
-          />
-          <input
-            type="text"
-            className={styles.writeForm_input}
-            value={`${exchangedMoney}원`}
-            readOnly
-          />
+          <div>
+            <Input
+              type={"text"}
+              labelText={"금액을 입력하세요."}
+              name={"foodExpense"}
+              value={foodExpense}
+              onChange={onFoodExpenseChange}
+              required={true}
+            />
+            <FiArrowRight />
+            <input
+              type="text"
+              className={styles.writeForm_input}
+              value={isNaN(exchangedMoney) ? "0원" : `${exchangedMoney}원`}
+              readOnly
+            />
+          </div>
           <div className={styles.writeForm_button_inline}>
             <Button
               text={"이전"}
@@ -100,9 +135,9 @@ const WriteForm = () => {
               type={"button"}
               onClick={() => handlePage(2)}
             />
-            <Button text={"입력"} large={true} type={"button"} />
+            <Button text={"입력"} large={true} type={"submit"} />
           </div>
-        </div>
+        </form>
       )}
     </div>
   );
