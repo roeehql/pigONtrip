@@ -1,6 +1,12 @@
 import Head from "next/head";
-import WriteForm from "@components/writeform/WriteForm";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+
 import Contents from "@components/contents/Contents";
+import FormSkeleton from "@components/atomic/FormSkeleton";
+const WriteForm = dynamic(() => import("@components/writeform/WriteForm"), {
+  suspense: true,
+});
 
 export default function Home() {
   return (
@@ -15,7 +21,9 @@ export default function Home() {
         />
       </Head>
       <main>
-        <WriteForm />
+        <Suspense fallback={<FormSkeleton />}>
+          <WriteForm />
+        </Suspense>
         <Contents />
       </main>
     </>

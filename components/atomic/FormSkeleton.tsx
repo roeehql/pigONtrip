@@ -1,4 +1,4 @@
-import styles from "@styles/components/writeForm/WriteForm.module.scss";
+import styles from "@styles/components/atomic/Skeleton.module.scss";
 
 const FormSkeleton = () => {
   return (

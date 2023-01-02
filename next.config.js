@@ -9,6 +9,7 @@ const assetPrefix = ON_GITHUB_PAGES ? `/${repoName}/` : "";
 
 const nextConfig = {
   reactStrictMode: true,
+  concurrentFeatures: true,
   images: {
     loader: "akamai",
     path: "",
