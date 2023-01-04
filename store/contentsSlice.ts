@@ -24,7 +24,8 @@ const contentsSlice = createSlice({
     getItem : (state)=>{
         const loadedContents = localStorage.getItem(CONTENTS_LIST);
         if (loadedContents !== null) {
-          const parsedContents: ContentsSliceState[] = JSON.parse(loadedContents);
+            state = [];
+            const parsedContents: ContentsSliceState[] = JSON.parse(loadedContents);
           parsedContents.forEach((element) => {
             state.push({...element});
           });
@@ -32,10 +33,9 @@ const contentsSlice = createSlice({
         return state;
     },
     editItem : (state,action:PayloadAction<ContentsSliceState>) =>{
-        let content = state.find((item)=> item.id === action.payload.id);
-        if(content){
-            content = action.payload;
-        }
+        let index = state.findIndex((item)=> item.id === action.payload.id);
+        state.splice(index, 1 , action.payload);
+        return state;
     },
     removeItem : (state,action:PayloadAction<string>) => {
         state =  state.filter((item)=> item.id !== action.payload);
@@ -51,4 +51,4 @@ const contentsSlice = createSlice({
 });
 
 export default contentsSlice.reducer;
-export const {addItem,removeItem, getItem, saveItem , resetItem} = contentsSlice.actions;
+export const {addItem,removeItem, getItem, saveItem , resetItem , editItem} = contentsSlice.actions;

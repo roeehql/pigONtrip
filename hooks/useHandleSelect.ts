@@ -15,13 +15,21 @@ const useSelectCountry = (initialCountry : string , initialCurrencyCode = "KRW")
     setCurrencyCode(value.split(',')[1]);
   };
 
+  const handleCountrySelect = (event: ChangeEvent<HTMLSelectElement>)=>{
+    const {
+      target: { value },
+    } = event;
+    setCountry(value.split(',')[0]);
+    setCurrencyCode(value.split(',')[1]);
+  }
+
   const handleDateClick = (event: ChangeEvent<HTMLInputElement>)=>{
     const {
       target: { value },
     } = event;
     setTripDate(value);
   }
-    return {country , currencyCode , tripDate, handleCountryClick , handleDateClick};
+    return {country , currencyCode , tripDate, handleCountryClick , handleDateClick , handleCountrySelect};
 }
 
 export default useSelectCountry;

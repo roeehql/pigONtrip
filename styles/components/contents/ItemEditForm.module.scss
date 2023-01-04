@@ -1,0 +1,41 @@
+@use "../../style.scss";
+
+.edit_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 16px;
+    .flex_align_center{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        .edit_select{
+            padding: 7px 12px;
+            border: 2px solid style.$light-grey;
+            margin-right: 10px;
+        }
+        .edit_input{
+            outline: none;
+            padding: 6px 12px;
+            font-size: 1rem;
+            border: none;
+            border-bottom: 2px solid style.$light-grey;
+        }
+        .edit_button{
+            outline: none;
+            padding: 10px 16px;
+            margin: 5px 5px;
+            border: none;
+            border-radius: 20px;
+            background-color:style.$point-blue;
+            color: #fff;
+            cursor: pointer;
+        }
+        .edit_button:hover{
+            background-color:style.$wide-blue;
+        }
+    }
+}
