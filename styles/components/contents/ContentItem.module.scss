@@ -66,3 +66,29 @@
         }
     }
 }
+
+@mixin mobile {
+    @media (min-width: #{style.$breakpoint-mobile}) and (max-width: #{style.$breakpoint-tablet - 1px}) {
+      @content;
+    }
+  }
+  
+  @mixin tablet {
+    @media (min-width: #{style.$breakpoint-tablet}) and (max-width: #{style.$breakpoint-desktop - 1px}) {
+      @content;
+    }
+  }
+  
+  
+  @include mobile {
+    .item_box{
+        height: fit-content;
+    }
+  
+  }
+  
+  @include tablet {
+    .item_box{
+        height: fit-content;
+    }
+  }

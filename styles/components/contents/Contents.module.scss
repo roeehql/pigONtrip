@@ -13,5 +13,31 @@
     min-height: 150px;
     margin: 16px;
     border-radius: 10px;
-    box-shadow: 0 0 20px #222f3e; 
+    box-shadow: 0 0 20px style.$wide-black; 
+}
+
+@mixin mobile {
+  @media (min-width: #{style.$breakpoint-mobile}) and (max-width: #{style.$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{style.$breakpoint-tablet}) and (max-width: #{style.$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
+
+
+@include mobile {
+  .contents_container{
+    width: 100vw;
+  }
+
+}
+
+@include tablet {
+  .contents_container{
+    width: 100vw;
+  }
 }

@@ -30,4 +30,41 @@
             border: 2px solid style.$main-yellow;
         }
     }
+    .flex_a_center{
+        display: flex;
+        align-items: center;
+        p{
+            padding-right: 16px;
+        }
+        .star_rating{
+            cursor: pointer;
+            font-size: 2rem;
+        }
+    }
 }
+
+@mixin mobile {
+    @media (min-width: #{style.$breakpoint-mobile}) and (max-width: #{style.$breakpoint-tablet - 1px}) {
+      @content;
+    }
+  }
+  
+  @mixin tablet {
+    @media (min-width: #{style.$breakpoint-tablet}) and (max-width: #{style.$breakpoint-desktop - 1px}) {
+      @content;
+    }
+  }
+  
+  
+  @include mobile {
+    .writeForm_container{
+      width: 100vw;
+    }
+  
+  }
+  
+  @include tablet {
+    .writeForm_container{
+      width: 100vw;
+    }
+  }
