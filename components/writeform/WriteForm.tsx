@@ -3,12 +3,13 @@ import dynamic from "next/dynamic";
 
 import useHandleSelect from "@hooks/useHandleSelect";
 import useHandleInput from "@hooks/useHandleInput";
+import { useGetCurrency } from "@hooks/useGetCurrency";
 
 import { useAppDispatch } from "@store/store";
 import { addItem, ContentsSliceState, saveItem } from "@store/contentsSlice";
 
 import { v4 as uuidv4 } from "uuid";
-import { FiArrowRight } from "react-icons/fi";
+import { FaArrowRight } from "react-icons/fa";
 
 const SelectCountry = dynamic(() => import("./SelectCountry"));
 import Button from "@components/atomic/Button";
@@ -16,11 +17,12 @@ const SelectDate = dynamic(() => import("./SelectDate"));
 import Input from "@components/atomic/Input";
 
 import styles from "@styles/components/writeForm/WriteForm.module.scss";
-import { useGetCurrency } from "@hooks/useGetCurrency";
+import StarRate from "./StarRate";
 
 const WriteForm = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
+  const [rating, setrating] = useState(0);
   const [exchangedMoney, setExchangedMoney] = useState(0);
   const {
     country,
@@ -56,7 +58,7 @@ const WriteForm = () => {
       currencyCode,
       tripDate,
       exchangedMoney,
-      star: 5,
+      star: rating,
     };
     dispatch(addItem(content));
     dispatch(saveItem());
@@ -104,23 +106,31 @@ const WriteForm = () => {
       {page === 3 && (
         <form className={styles.writeForm_input_food} onSubmit={handleSubmit}>
           <Input
-            type={"text"}
-            labelText={"음식을 입력하세요."}
+            labelText={"음식 이름 : "}
             name={"food"}
             value={food}
             onChange={onFoodChange}
             required={true}
           />
-          <div>
+          <div className={styles.flex_a_center}>
+            <p>별점 : </p>
+            <StarRate
+              count={5}
+              color={{ filled: "#feca57", unfilled: "#e0e0e0" }}
+              rating={rating}
+              onRating={(rate: number) => setrating(rate)}
+            />
+          </div>
+          <div className={styles.flex_a_center}>
             <Input
-              type={"text"}
-              labelText={"금액을 입력하세요."}
+              labelText={"금액 : "}
+              placeholder={"ex) 500엔 -> 500"}
               name={"foodExpense"}
               value={foodExpense}
               onChange={onFoodExpenseChange}
               required={true}
             />
-            <FiArrowRight />
+            <FaArrowRight />
             <input
               type="text"
               className={styles.writeForm_input}
