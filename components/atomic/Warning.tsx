@@ -15,7 +15,7 @@ const Warning = ({ message, path }: { message: string; path: string }) => {
       router.push(`${path}`);
     }, 3000);
     return () => clearTimeout(moveUserLocation);
-  }, []);
+  }, [path, router]);
 
   return (
     <div className={styles.warning}>
