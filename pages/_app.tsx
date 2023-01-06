@@ -13,8 +13,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          <Header />
           <Component {...pageProps} />;
+          <Header />
         </QueryClientProvider>
       </Provider>
     </>

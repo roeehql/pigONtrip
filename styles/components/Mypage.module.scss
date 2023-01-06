@@ -9,8 +9,8 @@
 
 .mypage_container{
   @include display-items(column, center , center);
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   .mypage_box{
     @include display-items(column, center , center);
     width: fit-content;

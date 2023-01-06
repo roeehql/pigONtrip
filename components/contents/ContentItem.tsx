@@ -1,22 +1,17 @@
 import { useState } from "react";
-import { FiMoreVertical } from "react-icons/fi";
+import dynamic from "next/dynamic";
+
 import { handleAmountComma } from "util/handleAmountComma";
-import style from "@styles/components/contents/ContentItem.module.scss";
 import { useAppDispatch } from "@store/store";
 import { removeItem, saveItem } from "@store/contentsSlice";
-import ItemEditForm from "./ItemEditForm";
-import { FaStar } from "react-icons/fa";
 
-export interface ItemState {
-  id: string;
-  food: string;
-  foodExpense: string;
-  exchangedMoney: number;
-  country: string;
-  currencyCode: string;
-  tripDate: string;
-  star: number;
-}
+import { ItemState } from "@@types/dataTypes";
+
+const ItemEditForm = dynamic(() => import("./ItemEditForm"));
+
+import { FiMoreVertical } from "react-icons/fi";
+import { FaStar } from "react-icons/fa";
+import style from "@styles/components/contents/ContentItem.module.scss";
 
 const ContentItem = ({ item }: { item: ItemState }) => {
   const [active, setActive] = useState(false);

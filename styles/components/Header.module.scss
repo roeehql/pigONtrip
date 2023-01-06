@@ -10,6 +10,8 @@
 /*NAvigation*/
 .header_nav{
   @include display-items(row, center, center);
+  position: fixed;
+  bottom: 0;
   width: 100%;
   background-color: style.$main-yellow;
   overflow-x: hidden;

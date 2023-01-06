@@ -1,16 +1,19 @@
-import Input from "@components/atomic/Input";
+import { FormEvent, useEffect, useState } from "react";
+
 import { useGetTravelDestination } from "@hooks/useGetTravelDestination";
+import { useGetCurrency } from "@hooks/useGetCurrency";
 import useHandleInput from "@hooks/useHandleInput";
 import useHandleSelect from "@hooks/useHandleSelect";
-import { FormEvent, useEffect, useState } from "react";
 import { getToday } from "util/getToday";
-import { ItemState } from "./ContentItem";
+
+import { useAppDispatch } from "@store/store";
+import { editItem, saveItem } from "@store/contentsSlice";
+
+import { ItemState } from "@@types/dataTypes";
+
 import styles from "@styles/components/contents/ItemEditForm.module.scss";
 import StarRate from "@components/writeform/StarRate";
 import { FaArrowRight } from "react-icons/fa";
-import { useGetCurrency } from "@hooks/useGetCurrency";
-import { useAppDispatch } from "@store/store";
-import { editItem, saveItem } from "@store/contentsSlice";
 
 const ItemEditForm = ({
   content,
