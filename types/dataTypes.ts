@@ -23,3 +23,7 @@ export interface ItemState {
     tripDate: string;
     star: number;
   }
+
+  export interface OnChangeState {
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  }

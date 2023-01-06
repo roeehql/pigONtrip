@@ -1,6 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
 
-import { useGetTravelDestination } from "@hooks/useGetTravelDestination";
 import { useGetCurrency } from "@hooks/useGetCurrency";
 import useHandleInput from "@hooks/useHandleInput";
 import useHandleSelect from "@hooks/useHandleSelect";
@@ -14,6 +13,7 @@ import { ItemState } from "@@types/dataTypes";
 import styles from "@styles/components/contents/ItemEditForm.module.scss";
 import StarRate from "@components/writeform/StarRate";
 import { FaArrowRight } from "react-icons/fa";
+import { travelDestination } from "@components/writeform/data/travelDestination";
 
 const ItemEditForm = ({
   content,
@@ -32,7 +32,6 @@ const ItemEditForm = ({
   const [editExchangedMoney, setEditExchangedMoney] = useState(
     content.exchangedMoney
   );
-  const travelDestinationList = useGetTravelDestination();
 
   const {
     country,
@@ -79,7 +78,7 @@ const ItemEditForm = ({
         />
         <select className={styles.edit_select} onChange={handleCountrySelect}>
           <option>{content.country}</option>
-          {travelDestinationList.map((item) => (
+          {travelDestination.map((item) => (
             <option key={item.index} value={[item.country, item.currencyCode]}>
               {item.country}
             </option>

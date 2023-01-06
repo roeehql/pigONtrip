@@ -1,12 +1,8 @@
 import { getToday, getYesterDay } from "util/getToday";
+import { OnChangeState } from "@@types/dataTypes";
 import styles from "@styles/components/writeForm/SelectDate.module.scss";
-import { ChangeEvent } from "react";
 
-const SelectDate = ({
-  onChange,
-}: {
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}) => {
+const SelectDate = ({ onChange }: OnChangeState) => {
   return (
     <div className={styles.select_date}>
       <label className={styles.label}>
