@@ -37,22 +37,29 @@ const ContentItem = ({ item }: { item: ItemState }) => {
         />
       ) : (
         <div className={style.item_box}>
-          <p className={style.item_p}>
-            <small className={style.item_small}>{item.tripDate}</small>
-            <span>{item.country}</span> <span>{item.food}</span>{" "}
-            <span>
-              {item.foodExpense} {item.currencyCode}
-            </span>{" "}
-            ➡️
-            <span>{handleAmountComma(item.exchangedMoney)} 원</span>
-            <span>
-              {Array(item.star)
-                .fill(0)
-                .map((item, index) => (
-                  <FaStar key={index} style={{ color: "#feca57" }} />
-                ))}
-            </span>
-          </p>
+          <div className={style.item_p}>
+            <div>
+              <small className={style.item_small}>{item.tripDate}</small>
+              <span className={style.item_span_food}>{item.country}</span>
+            </div>
+            <div>
+              <span>{item.food}</span>{" "}
+              <span>
+                {Array(item.star)
+                  .fill(0)
+                  .map((item, index) => (
+                    <FaStar key={index} style={{ color: "#feca57" }} />
+                  ))}
+              </span>
+            </div>
+            <div>
+              <span>
+                {item.foodExpense} {item.currencyCode}
+              </span>{" "}
+              ➡️
+              <span>{handleAmountComma(item.exchangedMoney)} 원</span>
+            </div>
+          </div>
           <div>
             <button
               className={style.item_button}

@@ -10,8 +10,10 @@
 .writeForm_container{
     @include display-items();
     width: 50vw;
-    height: 400px;
-    margin: 16px;
+    min-height: 500px;
+    height: fit-content;
+    margin-top: 80px;
+    margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 0 20px #222f3e;
     .writeForm_select_country{
@@ -22,6 +24,7 @@
     }
     .writeForm_input_food{
         @include display-items();
+        flex-direction: column;
         .writeForm_input{
             padding: 7px 16px;
             margin: 12px;
@@ -59,6 +62,12 @@
   @include mobile {
     .writeForm_container{
       width: 100vw;
+      height: fit-content;
+      margin-top: 80px;
+      box-shadow: none;
+      .flex_a_center{
+        flex-direction: column;
+      }
     }
   
   }

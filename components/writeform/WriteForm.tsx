@@ -9,7 +9,7 @@ import { useAppDispatch } from "@store/store";
 import { addItem, ContentsSliceState, saveItem } from "@store/contentsSlice";
 
 import { v4 as uuidv4 } from "uuid";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowDown } from "react-icons/fa";
 
 const SelectCountry = dynamic(() => import("./SelectCountry"));
 import Button from "@components/atomic/Button";
@@ -106,14 +106,14 @@ const WriteForm = () => {
       {page === 3 && (
         <form className={styles.writeForm_input_food} onSubmit={handleSubmit}>
           <Input
-            labelText={"음식 이름 : "}
+            labelText={""}
+            placeholder={"음식 이름"}
             name={"food"}
             value={food}
             onChange={onFoodChange}
             required={true}
           />
           <div className={styles.flex_a_center}>
-            <p>별점 : </p>
             <StarRate
               count={5}
               color={{ filled: "#feca57", unfilled: "#e0e0e0" }}
@@ -123,14 +123,14 @@ const WriteForm = () => {
           </div>
           <div className={styles.flex_a_center}>
             <Input
-              labelText={"금액 : "}
-              placeholder={"ex) 500엔 -> 500"}
+              labelText={""}
+              placeholder={"금액 ex) 500엔 -> 500"}
               name={"foodExpense"}
               value={foodExpense}
               onChange={onFoodExpenseChange}
               required={true}
             />
-            <FaArrowRight />
+            <FaArrowDown />
             <input
               type="text"
               className={styles.writeForm_input}

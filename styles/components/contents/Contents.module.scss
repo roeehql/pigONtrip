@@ -32,6 +32,10 @@
 @include mobile {
   .contents_container{
     width: 100vw;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+    border-top: 1px solid style.$light-grey;
   }
 
 }

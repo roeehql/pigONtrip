@@ -12,7 +12,7 @@ import { ItemState } from "@@types/dataTypes";
 
 import styles from "@styles/components/contents/ItemEditForm.module.scss";
 import StarRate from "@components/writeform/StarRate";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowDown } from "react-icons/fa";
 import { travelDestination } from "@components/writeform/data/travelDestination";
 
 const ItemEditForm = ({
@@ -100,7 +100,13 @@ const ItemEditForm = ({
           onChange={onEditFoodChange}
           required
         />
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <input
             type="text"
             name="foodExpense"
@@ -109,7 +115,7 @@ const ItemEditForm = ({
             onChange={onEditFoodExpenseChange}
             required
           />
-          <FaArrowRight />
+          <FaArrowDown />
           <input
             type="text"
             className={styles.edit_input}
