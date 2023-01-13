@@ -6,8 +6,6 @@ import { getItem } from "@store/contentsSlice";
 
 const ContentItem = dynamic(() => import("./ContentItem"), { suspense: true });
 
-import style from "@styles/components/contents/Contents.module.scss";
-
 const Contents = () => {
   const contentsList = useAppSelector((state) => state.contentsList);
   const dispatch = useAppDispatch();
@@ -17,7 +15,7 @@ const Contents = () => {
   }, [dispatch]);
 
   return (
-    <div className={style.contents_container}>
+    <div className="flex flex-col justify-center items-center w-screen min-h-80 mt-4 pb-120 border-2 border-b-0 border-x-0 border-t-black">
       {contentsList?.map((item) => (
         <ContentItem key={item.id} item={item} />
       ))}

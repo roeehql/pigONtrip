@@ -3,17 +3,12 @@ import { FormEvent, useEffect, useState } from "react";
 import { useGetCurrency } from "@hooks/useGetCurrency";
 import useHandleInput from "@hooks/useHandleInput";
 import useHandleSelect from "@hooks/useHandleSelect";
-import { getToday } from "util/getToday";
 
 import { useAppDispatch } from "@store/store";
 import { editItem, saveItem } from "@store/contentsSlice";
 
 import { ItemState } from "@@types/dataTypes";
-
-import styles from "@styles/components/contents/ItemEditForm.module.scss";
-import StarRate from "@components/writeform/StarRate";
-import { FaArrowDown } from "react-icons/fa";
-import { travelDestination } from "@components/writeform/data/travelDestination";
+import ItemEditFormView from "./ItemEditFormView";
 
 const ItemEditForm = ({
   content,
@@ -64,76 +59,22 @@ const ItemEditForm = ({
     setEditExchangedMoney(Math.round(exchangeRate * parseInt(editFoodExpense)));
   }, [exchangeRate, editFoodExpense]);
 
-  return (
-    <form className={styles.edit_form} onSubmit={onSubmit}>
-      <div className={styles.flex_align_center}>
-        <input
-          type="date"
-          name="trip_date"
-          className={styles.edit_select}
-          value={tripDate}
-          onChange={handleDateClick}
-          required
-          max={getToday()}
-        />
-        <select className={styles.edit_select} onChange={handleCountrySelect}>
-          <option>{content.country}</option>
-          {travelDestination.map((item) => (
-            <option key={item.index} value={[item.country, item.currencyCode]}>
-              {item.country}
-            </option>
-          ))}
-        </select>
-        <StarRate
-          count={5}
-          rating={rating}
-          color={{ filled: "#feca57", unfilled: "#e0e0e0" }}
-          onRating={(rate) => setrating(rate)}
-        />
-      </div>
-      <div className={styles.flex_align_center}>
-        <input
-          type="text"
-          name="food"
-          className={styles.edit_input}
-          value={editFood}
-          onChange={onEditFoodChange}
-          required
-        />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <input
-            type="text"
-            name="foodExpense"
-            className={styles.edit_input}
-            value={editFoodExpense}
-            onChange={onEditFoodExpenseChange}
-            required
-          />
-          <FaArrowDown />
-          <input
-            type="text"
-            className={styles.edit_input}
-            value={editExchangedMoney}
-            readOnly
-          />
-        </div>
-      </div>
-      <div className={styles.flex_align_center}>
-        <button className={styles.edit_button} type="submit">
-          수정
-        </button>
-        <button className={styles.edit_button} onClick={onEditCancelClick}>
-          취소
-        </button>
-      </div>
-    </form>
-  );
+  const itemEditFormViewData = {
+    onSubmit,
+    tripDate,
+    handleDateClick,
+    handleCountrySelect,
+    country: content.country,
+    rating,
+    onRating: (rate: number) => setrating(rate),
+    editFood,
+    onEditFoodChange,
+    editFoodExpense,
+    onEditFoodExpenseChange,
+    editExchangedMoney,
+    onEditCancelClick,
+  };
+  return <ItemEditFormView data={itemEditFormViewData} />;
 };
 
 export default ItemEditForm;

@@ -1,5 +1,3 @@
-import styles from "@styles/components/atomic/Input.module.scss";
-
 type InputTypes = {
   name: string;
   value: string | number;
@@ -19,7 +17,10 @@ const Input = ({
 }: InputTypes) => {
   return (
     <div>
-      <label className={styles.label} htmlFor={name}>
+      <label
+        className="w-full text-left tracking-tight font-serif"
+        htmlFor={name}
+      >
         {labelText}
       </label>
       <input
@@ -28,7 +29,7 @@ const Input = ({
         name={name}
         value={value}
         onChange={onChange}
-        className={styles.input}
+        className="px-4 py-1 m-3 outline-red-light rounded-lg border-2 border-solid border-yellow"
         placeholder={placeholder}
         required={required}
       />

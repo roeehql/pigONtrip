@@ -3,14 +3,13 @@ const Button = dynamic(() => import("@components/atomic/Button"));
 const Input = dynamic(() => import("@components/atomic/Input"));
 
 import { MyPageDataState } from "@@types/dataTypes";
-import style from "@styles/components/Mypage.module.scss";
 
 const MyPageView = ({ data }: MyPageDataState) => {
   return (
-    <div className={style.mypage_container}>
-      <h1>회원정보</h1>
-      <div className={style.mypage_box}>
-        <div className={style.mypage_item}>
+    <div className="flex flex-col justify-center items-center w-screen h-screen">
+      <h1 className="text-2xl tracking-tight mb-8">회원정보</h1>
+      <div className="flex flex-col justify-center items-center w-fit min-w-90 rounded-lg shadow p-3">
+        <div className="flex flex-row justify-around items-center w-full px-4 border-2 border-solid border-grey rounded-lg">
           {data.active ? (
             <>
               <Input
@@ -35,9 +34,8 @@ const MyPageView = ({ data }: MyPageDataState) => {
             </>
           ) : (
             <>
-              <p className={style.mypage_p}>
-                별명
-                <span className={style.mypage_span}>{data.userName}</span>
+              <p className="w-full">
+                별명 :<span className="pl-4">{data.userName}</span>
               </p>
               <Button
                 text="수정"
@@ -48,7 +46,7 @@ const MyPageView = ({ data }: MyPageDataState) => {
             </>
           )}
         </div>
-        <div className={style.mypage_item}>
+        <div className="flex flex-row justify-around items-center w-full px-4 border-solid border-grey rounded-lg">
           <Button
             text="전체 데이터 삭제"
             type="button"

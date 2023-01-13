@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 const Contents = dynamic(() => import("@components/contents/Contents"), {
   suspense: true,
 });
-import FormSkeleton from "@components/atomic/FormSkeleton";
 const WriteForm = dynamic(() => import("@components/writeform/WriteForm"), {
   suspense: true,
 });
@@ -15,11 +14,9 @@ export default function Home() {
       <Head>
         <title>돼지는 여행 중 : Pig ON Trip</title>
       </Head>
-      <main>
-        <Suspense fallback={<FormSkeleton />}>
-          <WriteForm />
-          <Contents />
-        </Suspense>
+      <main className="flex flex-col justify-center items-center w-screen h-screen p-0 m-0 box-border">
+        <WriteForm />
+        <Contents />
       </main>
     </>
   );

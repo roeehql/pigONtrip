@@ -1,6 +1,5 @@
 import { ChangeEvent } from "react";
 import { useState } from "react";
-import { getToday } from "util/getToday";
 
 const useSelectCountry = (initialCountry : string , initialCurrencyCode = "KRW") => {
   const [country, setCountry] = useState(initialCountry);

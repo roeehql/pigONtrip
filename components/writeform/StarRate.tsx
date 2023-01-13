@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { FaStar } from "react-icons/fa";
-import styles from "@styles/components/writeForm/WriteForm.module.scss";
 
 interface StarRatePropsState {
   count: number;
@@ -29,7 +28,7 @@ const StarRate = ({ count, rating, color, onRating }: StarRatePropsState) => {
       .map((idx) => (
         <FaStar
           key={idx}
-          className={styles.star_rating}
+          className="text-xl cursor-pointer"
           onClick={() => onRating(idx)}
           style={{ color: getColor(idx) }}
           onMouseEnter={() => setHoverRating(idx)}
@@ -38,7 +37,7 @@ const StarRate = ({ count, rating, color, onRating }: StarRatePropsState) => {
       ));
   }, [count, rating, hoverRating]);
 
-  return <div>{starRating}</div>;
+  return <div className="flex">{starRating}</div>;
 };
 
 export default StarRate;
