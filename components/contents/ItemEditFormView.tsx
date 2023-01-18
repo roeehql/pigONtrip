@@ -2,70 +2,62 @@ import StarRate from "@components/writeform/StarRate";
 import { travelDestination } from "@components/writeform/data/travelDestination";
 import { FaArrowDown } from "react-icons/fa";
 import { getToday } from "util/getToday";
-import { ItemEditFormViewState } from "@@types/dataTypes";
+import { EditFormDataState } from "@@types/dataTypes";
+import Textarea from "@components/atomic/Textarea";
 
-const ItemEditFormView = ({ data }: ItemEditFormViewState) => {
+const ItemEditFormView = ({ data }: { data: EditFormDataState }) => {
   return (
     <form
-      className="flex flex-col justify-center items-center w-full px-4 py-2"
+      className="flex flex-col justify-start items-center w-300 h-fit m-2 py-2 px-4 shadow bg-grey bg-opacity-10 border-2 border-solid border-grey"
       onSubmit={data.onSubmit}
     >
-      <div className="flex flex-wrap justify-start items-center">
-        <input
-          type="date"
-          name="trip_date"
-          className="px-3 py-1 border-solid border-2 border-grey mr-2 mb-4"
-          value={data.tripDate}
-          onChange={data.handleDateClick}
-          required
-          max={getToday()}
+      <input
+        type="date"
+        name="trip_date"
+        className="w-full px-3 py-1 border-solid border-2 border-grey mr-2 mb-4"
+        value={data.tripDate}
+        onChange={data.handleDateClick}
+        required
+        min={"2022-01-01"}
+        max={getToday()}
+      />
+      <select
+        className="w-full px-3 py-1 border-solid border-2 border-grey mr-2 mb-4"
+        onChange={data.handleCountrySelect}
+      >
+        <option>{data.country}</option>
+        {travelDestination.map((item) => (
+          <option key={item.index} value={[item.country, item.currencyCode]}>
+            {item.country}
+          </option>
+        ))}
+      </select>
+      <Textarea
+        value={data.editFood}
+        onChange={data.onEditFoodChange}
+        readOnly={false}
+        labelText={""}
+      />
+      <StarRate
+        count={5}
+        rating={data.rating}
+        color={{ filled: "#feca57", unfilled: "#e0e0e0" }}
+        onRating={data.onRating}
+      />
+      <div className="flex flex-col justify-start items-center w-full pt-8 pb-8 mt-8 border-2 border-dotted border-x-0 border-b-0 border-t-grey">
+        <Textarea
+          value={data.editFoodExpense}
+          onChange={data.onEditFoodExpenseChange}
+          readOnly={false}
+          labelText={`${data.country}금액`}
         />
-        <select
-          className="px-3 py-1 border-solid border-2 border-grey mr-2 mb-4"
-          onChange={data.handleCountrySelect}
-        >
-          <option>{data.country}</option>
-          {travelDestination.map((item) => (
-            <option key={item.index} value={[item.country, item.currencyCode]}>
-              {item.country}
-            </option>
-          ))}
-        </select>
-        <StarRate
-          count={5}
-          rating={data.rating}
-          color={{ filled: "#feca57", unfilled: "#e0e0e0" }}
-          onRating={data.onRating}
+        <Textarea
+          value={`${data.editExchangedMoney}`}
+          readOnly={true}
+          labelText={"한국금액"}
         />
       </div>
-      <div className="flex flex-wrap justify-start items-center">
-        <input
-          type="text"
-          name="food"
-          className="outline-none py-1 px-3 mb-4 text-base border-2 border-x-0 border-t-0 border-b-grey"
-          value={data.editFood}
-          onChange={data.onEditFoodChange}
-          required
-        />
-        <div className="flex flex-col items-center">
-          <input
-            type="text"
-            name="foodExpense"
-            className="outline-none py-1 px-3 mb-4 text-base border-2 border-x-0 border-t-0 border-b-grey"
-            value={data.editFoodExpense}
-            onChange={data.onEditFoodExpenseChange}
-            required
-          />
-          <FaArrowDown />
-          <input
-            type="text"
-            className="outline-none py-1 px-3 mb-4 text-base border-2 border-x-0 border-t-0 border-b-grey"
-            value={data.editExchangedMoney}
-            readOnly
-          />
-        </div>
-      </div>
-      <div className="flex flex-wrap justify-start items-center">
+      <div className="flex justify-around items-center">
         <button
           className="outline-none py-2 px-4 m-1 border-none rounded-xl bg-navy text-white cursor-pointer hover:bg-sky-blue"
           type="submit"

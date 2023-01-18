@@ -3,11 +3,11 @@ import { OnChangeState } from "@@types/dataTypes";
 
 const SelectCountry = ({ onChange }: OnChangeState) => {
   return (
-    <div className="grid grid-cols-22">
+    <div className="grid grid-cols-22 h-full justify-center">
       {travelDestination.map((item) => (
         <label
           key={item.index}
-          className="flex justify-center items-center w-200 h-fit rounded-lg p-2 m-1 bg-grey cursor-pointer hover:bg-sky-blue"
+          className="flex justify-center items-center w-150 h-fit rounded-lg p-2 m-1 bg-grey cursor-pointer hover:bg-sky-blue"
         >
           <input
             type="radio"

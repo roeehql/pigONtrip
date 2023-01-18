@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import dynamic from "next/dynamic";
 const MyPageView = dynamic(() => import("./MyPageView"));
 
-import useHandleInput from "@hooks/useHandleInput";
+import { useHandleInput } from "@hooks/useHandleInput";
 import { useAppDispatch, useAppSelector } from "@store/store";
 import { editUserName, removeUserName } from "@store/userNameSlice";
 import { resetItem } from "@store/contentsSlice";

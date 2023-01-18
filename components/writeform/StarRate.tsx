@@ -37,7 +37,7 @@ const StarRate = ({ count, rating, color, onRating }: StarRatePropsState) => {
       ));
   }, [count, rating, hoverRating]);
 
-  return <div className="flex">{starRating}</div>;
+  return <div className="flex pb-3">{starRating}</div>;
 };
 
 export default StarRate;

@@ -1,18 +1,60 @@
-import { useState } from "react";
-import dynamic from "next/dynamic";
+import { useState, MouseEvent, FormEvent, useEffect } from "react";
 
 import { useAppDispatch } from "@store/store";
-import { removeItem, saveItem } from "@store/contentsSlice";
+import { editItem, removeItem, saveItem } from "@store/contentsSlice";
 
 import { ItemState } from "@@types/dataTypes";
 import ContentItemView from "./ContentItemView";
-
-const ItemEditForm = dynamic(() => import("./ItemEditForm"));
+import { useHandleTextArea } from "@hooks/useHandleInput";
+import useHandleSelect from "@hooks/useHandleSelect";
+import { useGetCurrency } from "@hooks/useGetCurrency";
+import ItemEditFormView from "./ItemEditFormView";
 
 const ContentItem = ({ item }: { item: ItemState }) => {
-  const [active, setActive] = useState(false);
-  const [onEdit, setOnEdit] = useState(false);
   const dispatch = useAppDispatch();
+  const [isActiveMenu, setIsActiveMenu] = useState(false);
+  const [menuLocation, setMenuLocation] = useState({ x: 0, y: 0 });
+  const [onEdit, setOnEdit] = useState(false);
+  const [rating, setrating] = useState(item.star);
+  const { value: editFood, onChange: onEditFoodChange } = useHandleTextArea(
+    item.food
+  );
+  const { value: editPlace, onChange: onEditPlaceChange } = useHandleTextArea(
+    item.place
+  );
+  const { value: editFoodExpense, onChange: onEditFoodExpenseChange } =
+    useHandleTextArea(item.foodExpense);
+  const [editExchangedMoney, setEditExchangedMoney] = useState(
+    item.exchangedMoney
+  );
+
+  const {
+    country,
+    currencyCode,
+    tripDate,
+    handleCountrySelect,
+    handleDateClick,
+  } = useHandleSelect(item.country, item.currencyCode);
+  const exchangeRate = useGetCurrency({ date: tripDate, code: currencyCode });
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(
+      editItem({
+        id: item.id,
+        food: editFood,
+        foodExpense: editFoodExpense,
+        place: editPlace,
+        country,
+        currencyCode,
+        tripDate,
+        exchangedMoney: editExchangedMoney,
+        star: rating,
+      })
+    );
+    dispatch(saveItem());
+    setOnEdit(false);
+  };
 
   const handleDelete = (id: string) => {
     dispatch(removeItem(id));
@@ -21,25 +63,52 @@ const ContentItem = ({ item }: { item: ItemState }) => {
 
   const onEditClick = () => {
     setOnEdit(true);
-    setActive(false);
+    setIsActiveMenu(false);
   };
 
+  useEffect(() => {
+    setEditExchangedMoney(Math.round(exchangeRate * parseInt(editFoodExpense)));
+  }, [exchangeRate, editFoodExpense]);
+
   const contentItemViewData = {
-    onClickVerticalMenu: () => setActive(true),
-    active,
+    onClickVerticalMenu: (event: MouseEvent<HTMLButtonElement>) => {
+      setMenuLocation({ x: event.clientX, y: event.pageY });
+      setIsActiveMenu(true);
+    },
+    isActiveMenu,
+    menuLocation,
     onEditClick,
-    handleLeaveVerticalMenu: () => setActive(false),
+    handleLeaveVerticalMenu: () => setIsActiveMenu(false),
     handleDelete: () => handleDelete(item.id),
+    handleContextMenu: (event: MouseEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      setMenuLocation({ x: event.clientX, y: event.pageY });
+      setIsActiveMenu(true);
+    },
+    handleDoubleClick: () => setOnEdit(true),
+  };
+
+  const editFormDate = {
+    onSubmit,
+    tripDate,
+    handleDateClick,
+    handleCountrySelect,
+    country,
+    rating,
+    onRating: (rate: number) => setrating(rate),
+    editFood,
+    onEditFoodChange,
+    editFoodExpense,
+    onEditFoodExpenseChange,
+    editExchangedMoney,
+    onEditCancelClick: () => setOnEdit(false),
   };
   return (
     <>
       {onEdit ? (
-        <ItemEditForm
-          content={item}
-          onEditCancelClick={() => setOnEdit(false)}
-        />
+        <ItemEditFormView data={editFormDate} />
       ) : (
-        <ContentItemView item={item} data={contentItemViewData} />
+        <ContentItemView item={item} viewData={contentItemViewData} />
       )}
     </>
   );

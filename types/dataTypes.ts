@@ -1,4 +1,4 @@
-import { FormEvent,ChangeEvent } from "react";
+import { FormEvent , ChangeEvent , MouseEvent} from "react";
 
 export interface MyPageDataState {
     data: {
@@ -19,6 +19,7 @@ export interface ItemState {
     foodExpense: string;
     exchangedMoney: number;
     country: string;
+    place: string;
     currencyCode: string;
     tripDate: string;
     star: number;
@@ -30,18 +31,17 @@ export interface ItemState {
 
 
   export interface ContentItemDataState {
-    item: ItemState;
-    data: {
-      onClickVerticalMenu: () => void;
-      active: boolean;
+      onClickVerticalMenu: (event:MouseEvent<HTMLButtonElement>) => void;
+      isActiveMenu: boolean;
+      menuLocation:{x:number, y:number};
       onEditClick: () => void;
       handleLeaveVerticalMenu: () => void;
       handleDelete: () => void;
-    };
+      handleContextMenu: (event:MouseEvent<HTMLDivElement>)=>void;
+      handleDoubleClick: (event:MouseEvent<HTMLDivElement>)=>void;
   }
 
-  export interface ItemEditFormViewState {
-    data : {
+  export interface EditFormDataState {
       onSubmit: (event: FormEvent<HTMLFormElement>) => void;
       tripDate: string;
       handleDateClick: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -50,12 +50,11 @@ export interface ItemState {
       rating: number;
       onRating: (rate: number) => void;
       editFood: string;
-      onEditFoodChange: (e: ChangeEvent<HTMLInputElement>) => void;
+      onEditFoodChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
       editFoodExpense: string;
-      onEditFoodExpenseChange: (e: ChangeEvent<HTMLInputElement>) => void;
+      onEditFoodExpenseChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
       editExchangedMoney: number;
       onEditCancelClick: () => void;
-  }
 }
 
 export interface WriteFormViewState {
@@ -69,6 +68,8 @@ export interface WriteFormViewState {
       handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
       food: string;
       onFoodChange: (e: ChangeEvent<HTMLInputElement>) => void;
+      place: string;
+      onPlaceChange: (e: ChangeEvent<HTMLInputElement>) => void;
       rating: number;
       onRating: (rate: number) => void;
       foodExpense: string;

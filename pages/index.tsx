@@ -14,7 +14,7 @@ export default function Home() {
       <Head>
         <title>돼지는 여행 중 : Pig ON Trip</title>
       </Head>
-      <main className="flex flex-col justify-center items-center w-screen h-screen p-0 m-0 box-border">
+      <main className="flex flex-col justify-center items-center w-screen min-h-screen p-0 m-0 box-border">
         <WriteForm />
         <Contents />
       </main>

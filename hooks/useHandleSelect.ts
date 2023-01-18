@@ -1,10 +1,11 @@
 import { ChangeEvent } from "react";
 import { useState } from "react";
+import { getToday } from "util/getToday";
 
 const useSelectCountry = (initialCountry : string , initialCurrencyCode = "KRW") => {
   const [country, setCountry] = useState(initialCountry);
   const [currencyCode, setCurrencyCode] = useState(initialCurrencyCode);
-  const [tripDate , setTripDate] = useState("latest");
+  const [tripDate , setTripDate] = useState(getToday());
 
   const handleCountryClick = (event: ChangeEvent<HTMLInputElement>) => {
     const {

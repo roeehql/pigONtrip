@@ -13,6 +13,7 @@ const MyPageView = ({ data }: MyPageDataState) => {
           {data.active ? (
             <>
               <Input
+                type="form"
                 name="username"
                 value={data.editName}
                 onChange={data.onEditNameChange}

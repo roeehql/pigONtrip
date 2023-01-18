@@ -1,39 +1,57 @@
-type InputTypes = {
+interface InputTypes {
+  type: "form" | "item" | "edit";
   name: string;
   value: string | number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
   labelText: string;
   placeholder?: string;
-};
+  readOnly?: boolean;
+}
 
 const Input = ({
+  type,
   name,
   value,
   onChange,
   placeholder,
-  required,
+  required = true,
   labelText,
+  readOnly = false,
 }: InputTypes) => {
   return (
-    <div>
-      <label
-        className="w-full text-left tracking-tight font-serif"
-        htmlFor={name}
-      >
-        {labelText}
-      </label>
-      <input
-        id={name}
-        type="text"
-        name={name}
-        value={value}
-        onChange={onChange}
-        className="px-4 py-1 m-3 outline-red-light rounded-lg border-2 border-solid border-yellow"
-        placeholder={placeholder}
-        required={required}
-      />
-    </div>
+    <>
+      <div className="flex flex-col justify-start">
+        <label className="w-full text-left tracking-tight" htmlFor={name}>
+          {labelText}
+        </label>
+        {type === "form" && (
+          <input
+            id={name}
+            type="text"
+            name={name}
+            value={value}
+            onChange={onChange}
+            className="px-4 py-1 m-3 outline-red-light rounded-lg border-2 border-solid border-yellow"
+            placeholder={placeholder}
+            required={required}
+            readOnly={readOnly}
+          />
+        )}
+        {type === "item" && (
+          <input
+            id={name}
+            type="text"
+            name={name}
+            value={value}
+            onChange={onChange}
+            className="border-0 outline-sky-blue pl-2 m-2 text-right"
+            required={required}
+            readOnly={readOnly}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

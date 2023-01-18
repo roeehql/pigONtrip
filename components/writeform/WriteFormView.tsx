@@ -13,9 +13,9 @@ const SelectDate = dynamic(() => import("./SelectDate"));
 
 const WriteFormView = ({ data }: WriteFormViewState) => {
   return (
-    <div className="flex flex-col justify-items-center w-full h-600 mt-120 mb-5">
+    <div className="flex flex-col justify-items-center w-full h-600 mb-5">
       {data.page === 1 && (
-        <div className="flex flex-col justify-between items-center h-500">
+        <div className="flex flex-col justify-between items-center h-600 pt-80">
           <SelectCountry onChange={data.handleCountryClick} />
           <div className="flex flex-row">
             <button className="min-w-fit min-h-fit px-8 py-3 m-6 text-4xl">
@@ -32,7 +32,7 @@ const WriteFormView = ({ data }: WriteFormViewState) => {
         </div>
       )}
       {data.page === 2 && (
-        <div className="flex flex-col justify-between items-center h-500">
+        <div className="flex flex-col justify-between items-center h-600 pt-80">
           <SelectDate onChange={data.handleDateClick} />
           <div className="flex flex-row">
             <Button
@@ -53,18 +53,27 @@ const WriteFormView = ({ data }: WriteFormViewState) => {
       )}
       {data.page === 3 && (
         <form
-          className="flex flex-col justify-between items-center h-500"
+          className="flex flex-col justify-between items-center h-600 pt-80"
           onSubmit={data.handleSubmit}
         >
           <div className="flex flex-col justify-center items-center h-full">
             <Input
-              labelText={""}
-              placeholder={"음식 이름"}
+              type="form"
+              labelText={"장소는 어디인가요?"}
+              name={"place"}
+              value={data.place}
+              onChange={data.onPlaceChange}
+              required={true}
+            />
+            <Input
+              type="form"
+              labelText={"🍴음식이름을 입력하세요!"}
               name={"food"}
               value={data.food}
               onChange={data.onFoodChange}
               required={true}
             />
+            <p>⭐별점을 기록하세요⭐</p>
             <StarRate
               count={5}
               color={{ filled: "#feca57", unfilled: "#e0e0e0" }}
@@ -72,21 +81,24 @@ const WriteFormView = ({ data }: WriteFormViewState) => {
               onRating={data.onRating}
             />
             <Input
-              labelText={""}
-              placeholder={"금액 ex) 500엔 -> 500"}
+              type="form"
+              labelText={"금액을 입력하세요!"}
+              placeholder={"ex) 500엔 -> 500"}
               name={"foodExpense"}
               value={data.foodExpense}
               onChange={data.onFoodExpenseChange}
               required={true}
             />
             <FaArrowDown />
-            <input
-              type="text"
-              className="px-4 py-1 m-3 outline-red-light rounded-lg border-2 border-solid border-yellow"
+            <Input
+              type="form"
+              labelText={"환전된 금액을 확인하세요!"}
+              name={"exchangedMoney"}
               value={
                 isNaN(data.exchangedMoney) ? "0원" : `${data.exchangedMoney}원`
               }
-              readOnly
+              required={true}
+              readOnly={true}
             />
           </div>
           <div className="flex flex-row">

@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import useHandleSelect from "@hooks/useHandleSelect";
-import useHandleInput from "@hooks/useHandleInput";
+import { useHandleInput } from "@hooks/useHandleInput";
 import { useGetCurrency } from "@hooks/useGetCurrency";
 
 import { useAppDispatch } from "@store/store";
@@ -32,6 +32,11 @@ const WriteForm = () => {
     onChange: onFoodExpenseChange,
     setValue: setFoodExpense,
   } = useHandleInput("");
+  const {
+    value: place,
+    onChange: onPlaceChange,
+    setValue: setPlace,
+  } = useHandleInput("");
 
   const exchangeRate = useGetCurrency({ date: tripDate, code: currencyCode });
 
@@ -44,6 +49,7 @@ const WriteForm = () => {
     const content: ContentsSliceState = {
       id: uuidv4(),
       food,
+      place,
       foodExpense,
       country,
       currencyCode,
@@ -55,6 +61,8 @@ const WriteForm = () => {
     dispatch(saveItem());
     setFood("");
     setFoodExpense("");
+    setrating(0);
+    setPlace("");
     setPage(1);
   };
 
@@ -71,6 +79,8 @@ const WriteForm = () => {
     onClickSetPage3: () => setPage(3),
     handleSubmit,
     food,
+    place,
+    onPlaceChange,
     onFoodChange,
     rating,
     onRating: (rate: number) => setrating(rate),

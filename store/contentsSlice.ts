@@ -3,6 +3,7 @@ import { CONTENTS_LIST } from "util/constant/query.constant";
 
 export interface ContentsSliceState {
         id: string,
+        place: string,
         food: string,
         foodExpense: string,
         exchangedMoney: number,
@@ -19,7 +20,7 @@ const contentsSlice = createSlice({
    initialState,
    reducers:{
     addItem :  (state,action:PayloadAction<ContentsSliceState>) => {
-        state.push({...action.payload})
+        state.unshift({...action.payload})
     },
     getItem : (state)=>{
         const loadedContents = localStorage.getItem(CONTENTS_LIST);
