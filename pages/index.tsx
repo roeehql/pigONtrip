@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
+import TopButton from "@components/TopButton";
 const Contents = dynamic(() => import("@components/contents/Contents"), {
   suspense: true,
 });
@@ -17,6 +18,7 @@ export default function Home() {
       <main className="flex flex-col justify-center items-center w-screen min-h-screen p-0 m-0 box-border">
         <WriteForm />
         <Contents />
+        <TopButton />
       </main>
     </>
   );
