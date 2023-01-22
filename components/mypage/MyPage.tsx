@@ -14,7 +14,7 @@ const MyPage: NextPage = () => {
   const userName = useAppSelector((state) => state.userName.value);
   const dispatch = useAppDispatch();
 
-  const [active, setActive] = useState(false);
+  const [isOnEdit, setIsOnEdit] = useState(false);
   const { value: editName, onChange: onEditNameChange } =
     useHandleInput(userName);
 
@@ -34,17 +34,17 @@ const MyPage: NextPage = () => {
   const handleEditUserName = () => {
     dispatch(editUserName(editName));
     localStorage.setItem(USER_NAME, editName);
-    setActive(false);
+    setIsOnEdit(false);
   };
 
   const data = {
-    active,
+    isOnEdit,
     userName,
     editName,
     onEditNameChange,
     handleEditUserName,
-    onCancelButtonClick: () => setActive(false),
-    onEditButtonClick: () => setActive(true),
+    onCancelButtonClick: () => setIsOnEdit(false),
+    onEditButtonClick: () => setIsOnEdit(true),
     handleAllContentsDelete,
   };
   return <MyPageView data={data} />;

@@ -2,24 +2,25 @@ import dynamic from "next/dynamic";
 const Button = dynamic(() => import("@components/atomic/Button"));
 const Input = dynamic(() => import("@components/atomic/Input"));
 
-import { MyPageDataState } from "@@types/dataTypes";
+import { MyPageDataState } from "@@types/propsDataTypes";
 
 const MyPageView = ({ data }: MyPageDataState) => {
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen">
       <h1 className="text-2xl tracking-tight mb-8">회원정보</h1>
       <div className="flex flex-col justify-center items-center w-fit min-w-90 rounded-lg shadow p-3">
-        <div className="flex flex-row justify-around items-center w-full px-4 border-2 border-solid border-grey rounded-lg">
-          {data.active ? (
-            <>
-              <Input
-                type="form"
-                name="username"
-                value={data.editName}
-                onChange={data.onEditNameChange}
-                required={true}
-                labelText="별명 변경"
-              />
+        <div className="flex flex-col justify-around items-center w-full p-4 border-2 border-solid border-grey rounded-lg">
+          <Input
+            type="form"
+            name="username"
+            value={data.editName}
+            onChange={data.onEditNameChange}
+            required={true}
+            labelText={data.isOnEdit ? "별명 변경" : "별명"}
+            readOnly={data.isOnEdit ? false : true}
+          />
+          {data.isOnEdit ? (
+            <div>
               <Button
                 text="수정"
                 type="button"
@@ -32,19 +33,14 @@ const MyPageView = ({ data }: MyPageDataState) => {
                 large={false}
                 onClick={data.onCancelButtonClick}
               />
-            </>
+            </div>
           ) : (
-            <>
-              <p className="w-full">
-                별명 :<span className="pl-4">{data.userName}</span>
-              </p>
-              <Button
-                text="수정"
-                large={false}
-                type="button"
-                onClick={data.onEditButtonClick}
-              />
-            </>
+            <Button
+              text="수정"
+              large={false}
+              type="button"
+              onClick={data.onEditButtonClick}
+            />
           )}
         </div>
         <div className="flex flex-row justify-around items-center w-full px-4 border-solid border-grey rounded-lg">

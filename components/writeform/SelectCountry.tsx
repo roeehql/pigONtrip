@@ -1,5 +1,5 @@
 import { travelDestination } from "./data/travelDestination";
-import { OnChangeState } from "@@types/dataTypes";
+import { OnChangeState } from "@@types/propsDataTypes";
 
 const SelectCountry = ({ onChange }: OnChangeState) => {
   return (

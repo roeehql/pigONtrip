@@ -1,5 +1,5 @@
 import { getToday, getYesterDay } from "util/getToday";
-import { OnChangeState } from "@@types/dataTypes";
+import { OnChangeState } from "@@types/propsDataTypes";
 
 const SelectDate = ({ onChange }: OnChangeState) => {
   return (

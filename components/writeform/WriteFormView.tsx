@@ -3,9 +3,8 @@ import dynamic from "next/dynamic";
 import Button from "@components/atomic/Button";
 import Input from "@components/atomic/Input";
 
-import { FaArrowDown } from "react-icons/fa";
 import { GiAirplaneDeparture } from "react-icons/gi";
-import { WriteFormViewState } from "@@types/dataTypes";
+import { WriteFormViewState } from "@@types/propsDataTypes";
 
 const StarRate = dynamic(() => import("./StarRate"));
 const SelectCountry = dynamic(() => import("./SelectCountry"));
@@ -13,7 +12,7 @@ const SelectDate = dynamic(() => import("./SelectDate"));
 
 const WriteFormView = ({ data }: WriteFormViewState) => {
   return (
-    <div className="flex flex-col justify-items-center w-full h-600 mb-5">
+    <div className="flex flex-col justify-items-center w-full min-h-600 mb-5">
       {data.page === 1 && (
         <div className="flex flex-col justify-between items-center h-600 pt-80">
           <SelectCountry onChange={data.handleCountryClick} />
@@ -89,7 +88,6 @@ const WriteFormView = ({ data }: WriteFormViewState) => {
               onChange={data.onFoodExpenseChange}
               required={true}
             />
-            <FaArrowDown />
             <Input
               type="form"
               labelText={"환전된 금액을 확인하세요!"}

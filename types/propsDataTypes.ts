@@ -2,7 +2,7 @@ import { FormEvent , ChangeEvent , MouseEvent} from "react";
 
 export interface MyPageDataState {
     data: {
-        active: boolean;
+        isOnEdit: boolean;
         userName: string;
         editName: string;
         onEditNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -25,21 +25,35 @@ export interface ItemState {
     star: number;
   }
 
-  export interface OnChangeState {
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  }
-
-
   export interface ContentItemDataState {
       onClickVerticalMenu: (event:MouseEvent<HTMLButtonElement>) => void;
       isActiveMenu: boolean;
       menuLocation:{x:number, y:number};
       onEditClick: () => void;
       handleLeaveVerticalMenu: () => void;
+      deleteConfirm: boolean;
+      openConfirm: ()=>void;
+      cancelDelete: ()=>void;
       handleDelete: () => void;
       handleContextMenu: (event:MouseEvent<HTMLDivElement>)=>void;
       handleDoubleClick: (event:MouseEvent<HTMLDivElement>)=>void;
   }
+
+  export interface PaginateDataState {
+    paginateData: {
+      listLength: number;
+      handlePage: (page: number | "이전" | "다음") => void;
+      pageNumber: number;
+      currentPage: number;
+    };
+  }
+
+  //using at "Form-Components"
+
+  export interface OnChangeState {
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  }
+
 
   export interface EditFormDataState {
       onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -49,6 +63,8 @@ export interface ItemState {
       country: string;
       rating: number;
       onRating: (rate: number) => void;
+      editPlace:string;
+      onEditPlaceChange: (e: ChangeEvent<HTMLTextAreaElement>) => void; 
       editFood: string;
       onEditFoodChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
       editFoodExpense: string;

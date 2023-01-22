@@ -40,10 +40,6 @@ const WriteForm = () => {
 
   const exchangeRate = useGetCurrency({ date: tripDate, code: currencyCode });
 
-  const handlePage = (index: number) => {
-    setPage(index);
-  };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const content: ContentsSliceState = {
