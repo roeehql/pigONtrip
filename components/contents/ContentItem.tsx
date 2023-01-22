@@ -3,7 +3,7 @@ import { useState, MouseEvent, FormEvent, useEffect } from "react";
 import { useAppDispatch } from "@store/store";
 import { editItem, removeItem, saveItem } from "@store/contentsSlice";
 
-import { ItemState } from "@@types/dataTypes";
+import { ItemState } from "@@types/propsDataTypes";
 import ContentItemView from "./ContentItemView";
 import { useHandleTextArea } from "@hooks/useHandleInput";
 import useHandleSelect from "@hooks/useHandleSelect";
@@ -13,6 +13,7 @@ import ItemEditFormView from "./ItemEditFormView";
 const ContentItem = ({ item }: { item: ItemState }) => {
   const dispatch = useAppDispatch();
   const [isActiveMenu, setIsActiveMenu] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [menuLocation, setMenuLocation] = useState({ x: 0, y: 0 });
   const [onEdit, setOnEdit] = useState(false);
   const [rating, setrating] = useState(item.star);
@@ -57,6 +58,7 @@ const ContentItem = ({ item }: { item: ItemState }) => {
   };
 
   const handleDelete = (id: string) => {
+    setDeleteConfirm(false);
     dispatch(removeItem(id));
     dispatch(saveItem());
   };
@@ -79,6 +81,12 @@ const ContentItem = ({ item }: { item: ItemState }) => {
     menuLocation,
     onEditClick,
     handleLeaveVerticalMenu: () => setIsActiveMenu(false),
+    openConfirm: () => {
+      setDeleteConfirm(true);
+      setIsActiveMenu(false);
+    },
+    deleteConfirm,
+    cancelDelete: () => setDeleteConfirm(false),
     handleDelete: () => handleDelete(item.id),
     handleContextMenu: (event: MouseEvent<HTMLDivElement>) => {
       event.preventDefault();
@@ -97,6 +105,8 @@ const ContentItem = ({ item }: { item: ItemState }) => {
     rating,
     onRating: (rate: number) => setrating(rate),
     editFood,
+    editPlace,
+    onEditPlaceChange,
     onEditFoodChange,
     editFoodExpense,
     onEditFoodExpenseChange,

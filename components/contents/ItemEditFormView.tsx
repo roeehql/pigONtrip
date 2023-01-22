@@ -2,7 +2,7 @@ import StarRate from "@components/writeform/StarRate";
 import { travelDestination } from "@components/writeform/data/travelDestination";
 import { FaArrowDown } from "react-icons/fa";
 import { getToday } from "util/getToday";
-import { EditFormDataState } from "@@types/dataTypes";
+import { EditFormDataState } from "@@types/propsDataTypes";
 import Textarea from "@components/atomic/Textarea";
 
 const ItemEditFormView = ({ data }: { data: EditFormDataState }) => {
@@ -32,6 +32,12 @@ const ItemEditFormView = ({ data }: { data: EditFormDataState }) => {
           </option>
         ))}
       </select>
+      <Textarea
+        value={data.editPlace}
+        onChange={data.onEditPlaceChange}
+        readOnly={false}
+        labelText={""}
+      />
       <Textarea
         value={data.editFood}
         onChange={data.onEditFoodChange}
