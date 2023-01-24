@@ -1,7 +1,8 @@
 import Head from "next/head";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import TopButton from "@components/TopButton";
+import Spinner from "@components/atomic/Spinner";
+const TopButton = dynamic(() => import("@components/TopButton"));
 const Contents = dynamic(() => import("@components/contents/Contents"), {
   suspense: true,
 });
@@ -16,8 +17,10 @@ export default function Home() {
         <title>돼지는 여행 중 : Pig ON Trip</title>
       </Head>
       <main className="flex flex-col justify-center items-center w-screen min-h-screen p-0 m-0 box-border">
-        <WriteForm />
-        <Contents />
+        <Suspense fallback={<Spinner />}>
+          <WriteForm />
+          <Contents />
+        </Suspense>
         <TopButton />
       </main>
     </>

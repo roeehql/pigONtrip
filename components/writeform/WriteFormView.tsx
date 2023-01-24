@@ -3,8 +3,9 @@ import dynamic from "next/dynamic";
 import Button from "@components/atomic/Button";
 import Input from "@components/atomic/Input";
 
-import { GiAirplaneDeparture } from "react-icons/gi";
+import { FaMap } from "react-icons/fa";
 import { WriteFormViewState } from "@@types/propsDataTypes";
+import Link from "next/link";
 
 const StarRate = dynamic(() => import("./StarRate"));
 const SelectCountry = dynamic(() => import("./SelectCountry"));
@@ -17,9 +18,11 @@ const WriteFormView = ({ data }: WriteFormViewState) => {
         <div className="flex flex-col justify-between items-center h-600 pt-80">
           <SelectCountry onChange={data.handleCountryClick} />
           <div className="flex flex-row">
-            <button className="min-w-fit min-h-fit px-8 py-3 m-6 text-4xl">
-              <GiAirplaneDeparture />
-            </button>
+            <Link href={"/map"}>
+              <button className="min-w-fit min-h-fit px-8 py-3 m-6 text-4xl">
+                <FaMap />
+              </button>
+            </Link>
             <Button
               text={"다음"}
               large={true}
