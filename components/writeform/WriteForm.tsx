@@ -42,24 +42,31 @@ const WriteForm = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const content: ContentsSliceState = {
-      id: uuidv4(),
-      food,
-      place,
-      foodExpense,
-      country,
-      currencyCode,
-      tripDate,
-      exchangedMoney,
-      star: rating,
-    };
-    dispatch(addItem(content));
-    dispatch(saveItem());
-    setFood("");
-    setFoodExpense("");
-    setrating(0);
-    setPlace("");
-    setPage(1);
+    if (foodExpense.search("D")) {
+      setFoodExpense("숫자로만 입력해주세요!");
+      setTimeout(() => {
+        setFoodExpense("0");
+      }, 2000);
+    } else {
+      const content: ContentsSliceState = {
+        id: uuidv4(),
+        food,
+        place,
+        foodExpense,
+        country,
+        currencyCode,
+        tripDate,
+        exchangedMoney,
+        star: rating,
+      };
+      dispatch(addItem(content));
+      dispatch(saveItem());
+      setFood("");
+      setFoodExpense("");
+      setrating(0);
+      setPlace("");
+      setPage(1);
+    }
   };
 
   useEffect(() => {

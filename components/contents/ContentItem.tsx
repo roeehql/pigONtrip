@@ -23,8 +23,11 @@ const ContentItem = ({ item }: { item: ItemState }) => {
   const { value: editPlace, onChange: onEditPlaceChange } = useHandleTextArea(
     item.place
   );
-  const { value: editFoodExpense, onChange: onEditFoodExpenseChange } =
-    useHandleTextArea(item.foodExpense);
+  const {
+    value: editFoodExpense,
+    setValue: setEditFoodExpense,
+    onChange: onEditFoodExpenseChange,
+  } = useHandleTextArea(item.foodExpense);
   const [editExchangedMoney, setEditExchangedMoney] = useState(
     item.exchangedMoney
   );
@@ -40,21 +43,28 @@ const ContentItem = ({ item }: { item: ItemState }) => {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(
-      editItem({
-        id: item.id,
-        food: editFood,
-        foodExpense: editFoodExpense,
-        place: editPlace,
-        country,
-        currencyCode,
-        tripDate,
-        exchangedMoney: editExchangedMoney,
-        star: rating,
-      })
-    );
-    dispatch(saveItem());
-    setOnEdit(false);
+    if (editFoodExpense.search("D")) {
+      setEditFoodExpense("숫자로만 입력해주세요!");
+      setTimeout(() => {
+        setEditFoodExpense("0");
+      }, 2000);
+    } else {
+      dispatch(
+        editItem({
+          id: item.id,
+          food: editFood,
+          foodExpense: editFoodExpense,
+          place: editPlace,
+          country,
+          currencyCode,
+          tripDate,
+          exchangedMoney: editExchangedMoney,
+          star: rating,
+        })
+      );
+      dispatch(saveItem());
+      setOnEdit(false);
+    }
   };
 
   const handleDelete = (id: string) => {
