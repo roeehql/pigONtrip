@@ -83,7 +83,7 @@ const WriteFormView = ({ data }: WriteFormViewState) => {
               onRating={data.onRating}
             />
             <Input
-              type="form"
+              type="number"
               labelText={"금액을 입력하세요!"}
               placeholder={"ex) 500엔 -> 500"}
               name={"foodExpense"}

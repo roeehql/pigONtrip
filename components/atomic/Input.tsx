@@ -1,5 +1,5 @@
 interface InputTypes {
-  type: "form" | "item" | "edit";
+  type: "form" | "item" | "number";
   name: string;
   value: string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -29,6 +29,19 @@ const Input = ({
           <input
             id={name}
             type="text"
+            name={name}
+            value={value}
+            onChange={onChange}
+            className="px-4 py-1 m-3 outline-red-light rounded-lg border-2 border-solid border-yellow"
+            placeholder={placeholder}
+            required={required}
+            readOnly={readOnly}
+          />
+        )}
+        {type === "number" && (
+          <input
+            id={name}
+            type="number"
             name={name}
             value={value}
             onChange={onChange}

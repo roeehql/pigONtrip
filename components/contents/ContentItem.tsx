@@ -43,7 +43,7 @@ const ContentItem = ({ item }: { item: ItemState }) => {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (editFoodExpense.search("D")) {
+    if (isNaN(editExchangedMoney)) {
       setEditFoodExpense("숫자로만 입력해주세요!");
       setTimeout(() => {
         setEditFoodExpense("0");

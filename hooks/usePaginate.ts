@@ -27,8 +27,6 @@ const usePaginate = ({listLength}:{listLength:number}) => {
         }
       };
       useEffect(() => {
-        console.log(listLength);
-        
         setPageNumber(Math.ceil(listLength / 6));
       }, [listLength]);
 
