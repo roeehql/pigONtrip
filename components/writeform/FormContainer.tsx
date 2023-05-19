@@ -12,7 +12,7 @@ import Alert from "@components/atomic/Alert";
 import InputForm from "./InputForm";
 
 const FormContainer = (data: FormContainerState) => {
-  const [rating, setrating] = useState(0);
+  const [rating, setrating] = useState(5);
   const [exchangedMoney, setExchangedMoney] = useState(0);
   const {
     value: food,
@@ -28,7 +28,7 @@ const FormContainer = (data: FormContainerState) => {
     value: place,
     onChange: onPlaceChange,
     setValue: setPlace,
-  } = useHandleInput("");
+  } = useHandleInput("식당");
 
   const exchangeRate = useGetCurrency({
     date: data.tripDate,
@@ -46,8 +46,8 @@ const FormContainer = (data: FormContainerState) => {
   const afterSubmitFn = () => {
     setFood("");
     setFoodExpense("");
-    setrating(0);
-    setPlace("");
+    setrating(5);
+    setPlace("장소");
     data.setFirstPage();
   };
   const { onSubmit } = useSubmit({

@@ -4,9 +4,7 @@ import SelectCountry from "./SelectCountry";
 import SelectDate from "./SelectDate";
 import Button from "@components/atomic/Button";
 import FormContainer from "./FormContainer";
-
 import { FaMap } from "react-icons/fa";
-import Link from "next/link";
 
 const WriteForm = () => {
   const [page, setPage] = useState(1);
@@ -32,11 +30,9 @@ const WriteForm = () => {
         <div className="flex flex-col justify-between items-center h-600 pt-80">
           <SelectCountry onChange={handleCountryClick} />
           <div className="flex flex-row">
-            <Link href={"/map"}>
-              <button className="min-w-fit min-h-fit px-8 py-3 m-6 text-4xl">
-                <FaMap />
-              </button>
-            </Link>
+            <div className="min-w-fit min-h-fit px-8 py-3 m-6 text-4xl">
+              <FaMap />
+            </div>
             <Button
               text={"다음"}
               large={true}

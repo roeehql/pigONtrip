@@ -22,7 +22,7 @@ const InputForm = ({
           name={"place"}
           value={data.place}
           onChange={data.onPlaceChange}
-          required={true}
+          required={false}
         />
         <Input
           type="form"
