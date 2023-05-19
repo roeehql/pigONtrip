@@ -1,20 +1,15 @@
-import { FormEvent, useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-
+import { useState } from "react";
 import useHandleSelect from "@hooks/useHandleSelect";
-import { useHandleInput } from "@hooks/useHandleInput";
-import { useGetCurrency } from "@hooks/useGetCurrency";
+import SelectCountry from "./SelectCountry";
+import SelectDate from "./SelectDate";
+import Button from "@components/atomic/Button";
+import FormContainer from "./FormContainer";
 
-import { useAppDispatch } from "@store/store";
-import { addItem, ContentsSliceState, saveItem } from "@store/contentsSlice";
-
-import WriteFormView from "./WriteFormView";
+import { FaMap } from "react-icons/fa";
+import Link from "next/link";
 
 const WriteForm = () => {
-  const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
-  const [rating, setrating] = useState(0);
-  const [exchangedMoney, setExchangedMoney] = useState(0);
   const {
     country,
     currencyCode,
@@ -22,69 +17,59 @@ const WriteForm = () => {
     handleCountryClick,
     handleDateClick,
   } = useHandleSelect("");
-  const {
-    value: food,
-    onChange: onFoodChange,
-    setValue: setFood,
-  } = useHandleInput("");
-  const {
-    value: foodExpense,
-    onChange: onFoodExpenseChange,
-    setValue: setFoodExpense,
-  } = useHandleInput("");
-  const {
-    value: place,
-    onChange: onPlaceChange,
-    setValue: setPlace,
-  } = useHandleInput("");
 
-  const exchangeRate = useGetCurrency({ date: tripDate, code: currencyCode });
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const content: ContentsSliceState = {
-      id: uuidv4(),
-      food,
-      place,
-      foodExpense,
-      country,
-      currencyCode,
-      tripDate,
-      exchangedMoney,
-      star: rating,
-    };
-    dispatch(addItem(content));
-    dispatch(saveItem());
-    setFood("");
-    setFoodExpense("");
-    setrating(0);
-    setPlace("");
-    setPage(1);
+  const data = {
+    country,
+    currencyCode,
+    tripDate,
+    setFirstPage: () => setPage(1),
+    setSecondPage: () => setPage(2),
   };
 
-  useEffect(() => {
-    setExchangedMoney(Math.round(exchangeRate * parseInt(foodExpense)));
-  }, [exchangeRate, foodExpense]);
-
-  const writeFormViewData = {
-    page,
-    handleCountryClick,
-    handleDateClick,
-    onClickSetPage1: () => setPage(1),
-    onClickSetPage2: () => setPage(2),
-    onClickSetPage3: () => setPage(3),
-    handleSubmit,
-    food,
-    place,
-    onPlaceChange,
-    onFoodChange,
-    rating,
-    onRating: (rate: number) => setrating(rate),
-    foodExpense,
-    onFoodExpenseChange,
-    exchangedMoney,
-  };
-  return <WriteFormView data={writeFormViewData} />;
+  return (
+    <div className="flex flex-col justify-items-center w-full min-h-600 mb-5">
+      {page === 1 && (
+        <div className="flex flex-col justify-between items-center h-600 pt-80">
+          <SelectCountry onChange={handleCountryClick} />
+          <div className="flex flex-row">
+            <Link href={"/map"}>
+              <button className="min-w-fit min-h-fit px-8 py-3 m-6 text-4xl">
+                <FaMap />
+              </button>
+            </Link>
+            <Button
+              text={"다음"}
+              large={true}
+              color="red"
+              type={"button"}
+              onClick={() => setPage(2)}
+            />
+          </div>
+        </div>
+      )}
+      {page === 2 && (
+        <div className="flex flex-col justify-between items-center h-600 pt-80">
+          <SelectDate onChange={handleDateClick} />
+          <div className="flex flex-row">
+            <Button
+              text={"이전"}
+              large={true}
+              type={"button"}
+              onClick={() => setPage(1)}
+            />
+            <Button
+              text={"다음"}
+              large={true}
+              color="red"
+              type={"button"}
+              onClick={() => setPage(3)}
+            />
+          </div>
+        </div>
+      )}
+      {page === 3 && <FormContainer {...data} />}
+    </div>
+  );
 };
 
 export default WriteForm;

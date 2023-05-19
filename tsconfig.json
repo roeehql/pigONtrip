@@ -22,6 +22,6 @@
       "@styles/*": ["./styles/*"],
       "@store/*": ["./store/*"],},
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "__mocks__/fileMock.js", "__test__/snapshot.js"],
   "exclude": ["node_modules"]
 }

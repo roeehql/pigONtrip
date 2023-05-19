@@ -1,9 +1,9 @@
 import { ContentItemDataState, ItemState } from "@@types/propsDataTypes";
-import Button from "@components/atomic/Button";
 import Textarea from "@components/atomic/Textarea";
 import { FaStar } from "react-icons/fa";
-import { FiMoreVertical } from "react-icons/fi";
 import { handleAmountComma } from "util/handleAmountComma";
+import DeleteConfirm from "./DeleteConfirm";
+import MiniBar from "./MiniBar";
 
 const ContentItemView = ({
   item,
@@ -19,23 +19,7 @@ const ContentItemView = ({
       className="flex justify-center w-300 min-h-500 h-fit m-2 py-2 px-4 shadow bg-grey bg-opacity-10 border-2 border-solid border-grey"
     >
       {viewData.deleteConfirm ? (
-        <div className="flex flex-col justify-center items-center w-full h-500 ">
-          <h3 className="w-full mb-5 text-center">정말로 삭제하시겠습니까?</h3>
-          <div className="flex justify-around">
-            <Button
-              text={"네"}
-              large={false}
-              type={"button"}
-              onClick={viewData.handleDelete}
-            />
-            <Button
-              text={"아니오"}
-              large={false}
-              type={"button"}
-              onClick={viewData.cancelDelete}
-            />
-          </div>
-        </div>
+        <DeleteConfirm {...viewData} />
       ) : (
         <>
           <div className="flex flex-col w-300 py-1 font-sans text-base">
@@ -63,37 +47,7 @@ const ContentItemView = ({
               />
             </div>
           </div>
-          <div>
-            <button
-              className="flex flex-row justify-center items-center w-8 h-8 border-transparent rounded-full bg-transparent cursor-pointer hover:bg-grey"
-              onClick={viewData.onClickVerticalMenu}
-            >
-              <FiMoreVertical />
-            </button>
-            {viewData.isActiveMenu && (
-              <div
-                className="absolute w-80 h-80 rounded-lg bg-white border-2 border-solid border-black"
-                style={{
-                  left: viewData.menuLocation.x,
-                  top: viewData.menuLocation.y,
-                }}
-                onMouseLeave={viewData.handleLeaveVerticalMenu}
-              >
-                <button
-                  className="flex flex-col justify-center items-center w-full h-1/2 rounded-t-lg border-2 border-x-0 border-t-0 border-b-black bg-transparent text-base cursor-pointer hover:bg-grey"
-                  onClick={viewData.openConfirm}
-                >
-                  삭제
-                </button>
-                <button
-                  className="flex flex-col justify-center items-center w-full h-1/2 rounded-b-lg text-base cursor-pointer hover:bg-grey"
-                  onClick={viewData.onEditClick}
-                >
-                  수정
-                </button>
-              </div>
-            )}
-          </div>
+          <MiniBar {...viewData} />
         </>
       )}
     </div>

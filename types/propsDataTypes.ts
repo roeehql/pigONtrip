@@ -9,7 +9,6 @@ export interface MyPageDataState {
         handleEditUserName: () => void;
         onCancelButtonClick: () => void;
         onEditButtonClick: () => void;
-        handleAllContentsDelete: () => false | undefined;
     }
 }
 
@@ -29,10 +28,10 @@ export interface ItemState {
       onClickVerticalMenu: (event:MouseEvent<HTMLButtonElement>) => void;
       isActiveMenu: boolean;
       menuLocation:{x:number, y:number};
-      onEditClick: () => void;
+      openEditForm: () => void;
       handleLeaveVerticalMenu: () => void;
       deleteConfirm: boolean;
-      openConfirm: ()=>void;
+      openDeleteConfirm: ()=>void;
       cancelDelete: ()=>void;
       handleDelete: () => void;
       handleContextMenu: (event:MouseEvent<HTMLDivElement>)=>void;
@@ -54,42 +53,51 @@ export interface ItemState {
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   }
 
+ export interface EditDataState {
+  closeEditForm: ()=>void;
+  onEditCancelClick: () => void;
+ }
+
+ export interface EditFormValueDataState {
+  tripDate: string;
+  country: string;
+  rating: number;
+  editPlace:string;
+  editFood: string;
+  editFoodExpense: string;
+  editExchangedMoney: number;  
+ }
 
   export interface EditFormDataState {
+      viewData : EditFormValueDataState,
       onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-      tripDate: string;
       handleDateClick: (event: ChangeEvent<HTMLInputElement>) => void;
       handleCountrySelect: (event: ChangeEvent<HTMLSelectElement>) => void;
-      country: string;
-      rating: number;
       onRating: (rate: number) => void;
-      editPlace:string;
       onEditPlaceChange: (e: ChangeEvent<HTMLTextAreaElement>) => void; 
-      editFood: string;
       onEditFoodChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-      editFoodExpense: string;
       onEditFoodExpenseChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-      editExchangedMoney: number;
+      closeEditForm: ()=>void;
       onEditCancelClick: () => void;
 }
 
-export interface WriteFormViewState {
-  data : {
-      page: number;
-      handleCountryClick: (event: ChangeEvent<HTMLInputElement>) => void;
-      handleDateClick: (event: ChangeEvent<HTMLInputElement>) => void;
-      onClickSetPage1: () => void;
-      onClickSetPage2: () => void;
-      onClickSetPage3: () => void;
-      handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
-      food: string;
-      onFoodChange: (e: ChangeEvent<HTMLInputElement>) => void;
-      place: string;
-      onPlaceChange: (e: ChangeEvent<HTMLInputElement>) => void;
-      rating: number;
-      onRating: (rate: number) => void;
-      foodExpense: string;
-      onFoodExpenseChange: (e: ChangeEvent<HTMLInputElement>) => void;
-      exchangedMoney: number;
-  }
+export interface InputFormState {
+  food: string;
+  place: string;
+  rating: number;
+  foodExpense: string;
+  exchangedMoney: number;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onFoodChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onPlaceChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onRating: (rate: number) => void;
+  onFoodExpenseChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface FormContainerState {
+  country : string,
+  currencyCode : string,
+  tripDate: string,
+  setFirstPage : ()=> void,
+  setSecondPage : ()=>void,
 }

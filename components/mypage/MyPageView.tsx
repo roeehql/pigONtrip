@@ -3,6 +3,7 @@ const Button = dynamic(() => import("@components/atomic/Button"));
 const Input = dynamic(() => import("@components/atomic/Input"));
 
 import { MyPageDataState } from "@@types/propsDataTypes";
+import DeleteAllButton from "./DeleteAllButton";
 
 const MyPageView = ({ data }: MyPageDataState) => {
   return (
@@ -43,14 +44,7 @@ const MyPageView = ({ data }: MyPageDataState) => {
             />
           )}
         </div>
-        <div className="flex flex-row justify-around items-center w-full px-4 border-solid border-grey rounded-lg">
-          <Button
-            text="전체 데이터 삭제"
-            type="button"
-            large={true}
-            onClick={data.handleAllContentsDelete}
-          />
-        </div>
+        <DeleteAllButton />
       </div>
     </div>
   );
