@@ -1,11 +1,9 @@
-/** @type {import('next').NextConfig} */
-
-const ON_GITHUB_PAGES = process.env.NODE_ENV === "production";
+const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
 
 const repoName = "pigONtrip";
 
-const basePath = ON_GITHUB_PAGES ? `/${repoName}` : undefined;
-const assetPrefix = ON_GITHUB_PAGES ? `/${repoName}/` : undefined;
+const basePath = isProduction ? `/${repoName}` : "";
+const assetPrefix = isProduction ? `/${repoName}/` : "";
 
 const nextConfig = {
   reactStrictMode: true,
