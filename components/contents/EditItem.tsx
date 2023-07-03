@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useHandleTextArea } from "@hooks/useHandleText";
-import useHandleSelect from "@hooks/useHandleSelect";
-import { useGetCurrency } from "@hooks/useGetCurrency";
+import useHandleSelect from "@components/writeform/hooks/useHandleSelect";
+import { useGetCurrency } from "@components/writeform/hooks/useGetCurrency";
 
 import { EditDataState, ItemState } from "@@types/propsDataTypes";
 

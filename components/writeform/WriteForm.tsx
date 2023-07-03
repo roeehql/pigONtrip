@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useHandleSelect from "@hooks/useHandleSelect";
+import useHandleSelect from "@components/writeform/hooks/useHandleSelect";
 import SelectCountry from "./SelectCountry";
 import SelectDate from "./SelectDate";
 import Button from "@components/atomic/Button";

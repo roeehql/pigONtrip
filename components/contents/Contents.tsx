@@ -3,8 +3,8 @@ import dynamic from "next/dynamic";
 
 import { useAppDispatch, useAppSelector } from "@store/store";
 import { getItem } from "@store/contentsSlice";
-import usePaginate from "@hooks/usePaginate";
 import Paginate from "./Paginate";
+import usePaginate from "./hooks/usePaginate";
 
 const ContentItem = dynamic(() => import("./ContentItem"), { suspense: true });
 

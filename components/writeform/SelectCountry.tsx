@@ -1,4 +1,4 @@
-import { travelDestination } from "./data/travelDestination";
+import { travelDestination } from "@data/jsonData/travelDestination";
 import { OnChangeState } from "@@types/propsDataTypes";
 
 const SelectCountry = ({ onChange }: OnChangeState) => {

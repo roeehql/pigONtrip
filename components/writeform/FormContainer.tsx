@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { useGetCurrency } from "@hooks/useGetCurrency";
+import { useGetCurrency } from "@components/writeform/hooks/useGetCurrency";
 import { useHandleInput } from "@hooks/useHandleText";
 import { useSubmit } from "@hooks/useSubmit";
 

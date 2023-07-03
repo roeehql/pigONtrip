@@ -1,5 +1,5 @@
 import StarRate from "@components/writeform/StarRate";
-import { travelDestination } from "@components/writeform/data/travelDestination";
+import { travelDestination } from "data/jsonData/travelDestination";
 import { getToday } from "util/getToday";
 import { EditFormDataState } from "@@types/propsDataTypes";
 import Textarea from "@components/atomic/Textarea";

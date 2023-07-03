@@ -1,7 +1,7 @@
-import Button from "@components/atomic/Button";
 import { resetItem } from "@store/contentsSlice";
 import { useAppDispatch } from "@store/store";
-import { removeUserName } from "@store/userNameSlice";
+import { resetUserName } from "@store/userNameSlice";
+import Button from "@components/atomic/Button";
 
 const DeleteAllButton = () => {
   const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ const DeleteAllButton = () => {
       "전체 삭제를 하시면 모든 내용과 설정한 닉네임이 모두 사라집니다. 그래도 삭제하시겠습니까?"
     );
     if (checkUSer) {
-      dispatch(removeUserName());
+      dispatch(resetUserName());
       localStorage.clear();
       dispatch(resetItem());
     } else {
