@@ -1,9 +1,8 @@
-import dynamic from "next/dynamic";
-const Button = dynamic(() => import("@components/atomic/Button"));
-const Input = dynamic(() => import("@components/atomic/Input"));
-
 import { MyPageDataState } from "@@types/propsDataTypes";
 import DeleteAllButton from "./DeleteAllButton";
+import Logout from "./Logout";
+import Input from "@components/atomic/Input";
+import Button from "@components/atomic/Button";
 
 const MyPageView = ({ data }: MyPageDataState) => {
   return (
@@ -44,6 +43,7 @@ const MyPageView = ({ data }: MyPageDataState) => {
             />
           )}
         </div>
+        <Logout />
         <DeleteAllButton />
       </div>
     </div>

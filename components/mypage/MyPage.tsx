@@ -5,21 +5,25 @@ const MyPageView = dynamic(() => import("./MyPageView"));
 
 import { useHandleInput } from "@hooks/useHandleText";
 import { useAppDispatch, useAppSelector } from "@store/store";
-import { editUserName } from "@store/userNameSlice";
-
-import { USER_NAME } from "util/constant/query.constant";
+import { editUserName, saveUserName } from "@store/userNameSlice";
+import { useRouter } from "next/router";
+import Alert from "@components/atomic/Alert";
 
 const MyPage: NextPage = () => {
-  const userName = useAppSelector((state) => state.userName.value);
+  const userName = useAppSelector((state) =>
+    state.userName.filter((user) => user.isLoggedIn === true)
+  );
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const [isOnEdit, setIsOnEdit] = useState(false);
-  const { value: editName, onChange: onEditNameChange } =
-    useHandleInput(userName);
+  const { value: editName, onChange: onEditNameChange } = useHandleInput(
+    userName[0]?.name
+  );
 
   const handleEditUserName = () => {
-    dispatch(editUserName(editName));
-    localStorage.setItem(USER_NAME, editName);
+    dispatch(editUserName({ name: editName, isLoggedIn: true }));
+    dispatch(saveUserName());
     setIsOnEdit(false);
   };
 
@@ -32,6 +36,16 @@ const MyPage: NextPage = () => {
     onCancelButtonClick: () => setIsOnEdit(false),
     onEditButtonClick: () => setIsOnEdit(true),
   };
+
+  if (userName.length === 0) {
+    setTimeout(() => router.push("/"), 2000);
+    return (
+      <Alert
+        title={"비정상적인 접근입니다."}
+        message={"로그인 화면으로 이동합니다."}
+      />
+    );
+  }
 
   return <MyPageView data={data} />;
 };

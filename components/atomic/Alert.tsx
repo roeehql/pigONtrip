@@ -13,7 +13,7 @@ const Alert = ({ title, message }: { title: string; message: string }) => {
   return (
     <>
       {showToast && (
-        <div className="absolute top-0 right-0 flex flex-col justify-center items-center w-200 h-150 p-6 m-6 shadow bg-white rounded-2xl">
+        <div className="absolute top-0 right-0 flex flex-col justify-center items-center min-w-200 w-fit min-h-150 h-fit p-6 m-6 shadow bg-white rounded-2xl z-50">
           <p className="w-full tracking-tight text-base">{title}</p>
           <p className="w-full tracking-tight text-base">{message}</p>
         </div>

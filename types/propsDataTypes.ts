@@ -1,14 +1,15 @@
+import { UserNameSliceState } from "@store/userNameSlice";
 import { FormEvent , ChangeEvent , MouseEvent} from "react";
 
 export interface MyPageDataState {
     data: {
-        isOnEdit: boolean;
-        userName: string;
-        editName: string;
-        onEditNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
-        handleEditUserName: () => void;
-        onCancelButtonClick: () => void;
-        onEditButtonClick: () => void;
+      isOnEdit: boolean;
+      userName: UserNameSliceState[];
+      editName: string;
+      onEditNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
+      handleEditUserName: () => void;
+      onCancelButtonClick: () => void;
+      onEditButtonClick: () => void;
     }
 }
 
