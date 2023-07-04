@@ -1,4 +1,4 @@
-import { UserNameSliceState } from "@store/userNameSlice";
+import { UserNameSliceState } from "@data/store/userNameSlice";
 import { FormEvent , ChangeEvent , MouseEvent} from "react";
 
 export interface MyPageDataState {

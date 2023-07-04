@@ -1,7 +1,7 @@
 import { useState, MouseEvent } from "react";
 
-import { useAppDispatch } from "@store/store";
-import { removeItem, saveItem } from "@store/contentsSlice";
+import { useAppDispatch, useAppSelector } from "@data/store/store";
+import { removeItem, saveItem, setItem } from "@data/store/contentsSlice";
 
 import { ItemState } from "@@types/propsDataTypes";
 import ContentItemView from "./ContentItemView";
@@ -13,11 +13,15 @@ const ContentItem = ({ item }: { item: ItemState }) => {
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [menuLocation, setMenuLocation] = useState({ x: 0, y: 0 });
   const [onEdit, setOnEdit] = useState(false);
+  const userName = useAppSelector((state) =>
+    state.userName.filter((user) => user.isLoggedIn === true)
+  );
 
   const handleDelete = (id: string) => {
     setDeleteConfirm(false);
     dispatch(removeItem(id));
-    dispatch(saveItem());
+    dispatch(saveItem(userName[0].name));
+    dispatch(setItem(userName[0].name));
   };
 
   const openEditForm = () => {

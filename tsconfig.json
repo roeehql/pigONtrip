@@ -20,7 +20,7 @@
       "@hooks/*": ["./hooks/*"],
       "@@types/*": ["./types/*"],
       "@data/*": ["./data/*"],
-      "@store/*": ["./store/*"],},
+      "@store/*": ["data/store/*"],},
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "__mocks__/fileMock.js", "__test__/snapshot.js"],
   "exclude": ["node_modules"]

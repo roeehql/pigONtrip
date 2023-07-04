@@ -1,5 +1,5 @@
+import { getStorage, resetStorage, setStorage } from "@data/browserStorage/localStorages";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CONTENTS_LIST } from "util/constant/query.constant";
 
 export interface ContentsSliceState {
         id: string,
@@ -22,34 +22,33 @@ const contentsSlice = createSlice({
     addItem :  (state,action:PayloadAction<ContentsSliceState>) => {
         state.unshift({...action.payload})
     },
-    getItem : (state)=>{
-        const loadedContents = localStorage.getItem(CONTENTS_LIST);
-        if (loadedContents !== null) {
+    setItem : (state,action:PayloadAction<string>)=>{
+        const loadedContents:ContentsSliceState[] | "no data" = getStorage(action.payload);
+        if (loadedContents !== "no data") {
             state = [];
-            const parsedContents: ContentsSliceState[] = JSON.parse(loadedContents);
-          parsedContents.forEach((element) => {
-            state.push({...element});
+            loadedContents.forEach((item) => {
+            state.push({...item});
           });
         }
-        return state;
+        return state
     },
     editItem : (state,action:PayloadAction<ContentsSliceState>) =>{
         let index = state.findIndex((item)=> item.id === action.payload.id);
         state.splice(index, 1 , action.payload);
-        return state;
     },
     removeItem : (state,action:PayloadAction<string>) => {
         state =  state.filter((item)=> item.id !== action.payload);
-        return state;
+        return state
     },
-    saveItem : (state) => {
-        localStorage.setItem(CONTENTS_LIST, JSON.stringify(state));        
+    saveItem : (state, action:PayloadAction<string>) => {
+        setStorage(action.payload, JSON.stringify(state));        
     },
     resetItem : (state) => {
+        resetStorage()
         state = [];
     }
    },
 });
 
 export default contentsSlice.reducer;
-export const {addItem,removeItem, getItem, saveItem , resetItem , editItem} = contentsSlice.actions;
+export const {addItem,removeItem, setItem, saveItem , resetItem , editItem} = contentsSlice.actions;

@@ -1,7 +1,12 @@
-import { ContentItemDataState } from "@@types/propsDataTypes";
 import Button from "@components/atomic/Button";
 
-const DeleteConfirm = (viewData: ContentItemDataState) => {
+const DeleteConfirm = ({
+  handleDelete,
+  cancelDelete,
+}: {
+  handleDelete: () => void;
+  cancelDelete: () => void;
+}) => {
   return (
     <div className="flex flex-col justify-center items-center w-full h-500 ">
       <h3 className="w-full mb-5 text-center">정말로 삭제하시겠습니까?</h3>
@@ -10,13 +15,13 @@ const DeleteConfirm = (viewData: ContentItemDataState) => {
           text={"네"}
           large={false}
           type={"button"}
-          onClick={viewData.handleDelete}
+          onClick={handleDelete}
         />
         <Button
           text={"아니오"}
           large={false}
           type={"button"}
-          onClick={viewData.cancelDelete}
+          onClick={cancelDelete}
         />
       </div>
     </div>

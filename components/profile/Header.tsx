@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useAppSelector } from "@store/store";
+import { useAppSelector } from "@data/store/store";
 import ProfileList from "./ProfileList";
 import mascot from "public/mascot/pig.png";
 

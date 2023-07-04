@@ -13,11 +13,12 @@ const userNameSlice = createSlice({
    name:'userInfoSlice',
    initialState,
    reducers:{
-    createUserName: (state, action) => {
+    createUserName: (state, action:PayloadAction<UserNameSliceState>) => {
         state.push({ ...action.payload });
+        setStorage(USERNAME, JSON.stringify(state));
       },
     saveUserName: (state) => {
-        setStorage(USERNAME, JSON.stringify(state));
+      setStorage(USERNAME, JSON.stringify(state));
       },
     getUserList: (state) => {
         state = [];
@@ -29,16 +30,17 @@ const userNameSlice = createSlice({
         }
         return state;
       },
-    removeUserName :  (state, action) => {
+    removeUserName :  (state, action:PayloadAction<string>) => {
         state = state.filter((user) => user.name !== action.payload);
         return state;
       },
-      resetUserName : (state) => {
+    resetUserName : (state) => {
         state = initialState
       },
     editUserName : (state, action:PayloadAction<UserNameSliceState>) => {
         let index = state.findIndex((user) => user.name === action.payload.name);
         state.splice(index, 1, action.payload);
+        setStorage(USERNAME, JSON.stringify(state));
         return state;
     },
    },

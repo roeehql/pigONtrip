@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { useGetCurrency } from "@components/writeform/hooks/useGetCurrency";
+import { useAppDispatch } from "@data/store/store";
+import { setToast } from "@data/store/toastSlice";
 import { useHandleInput } from "@hooks/useHandleText";
 import { useSubmit } from "@hooks/useSubmit";
-
+import { useGetCurrency } from "./hooks/useGetCurrency";
 import { FormContainerState } from "@@types/propsDataTypes";
 
-import Alert from "@components/atomic/Alert";
 import InputForm from "./InputForm";
 
 const FormContainer = (data: FormContainerState) => {
+  const dispatch = useAppDispatch();
   const [rating, setrating] = useState(5);
   const [exchangedMoney, setExchangedMoney] = useState(0);
   const {
@@ -37,9 +38,10 @@ const FormContainer = (data: FormContainerState) => {
 
   const typeCheckFn = () => {
     if (data.currencyCode === "KRW") {
-      return (
-        <Alert title="잠시만요!" message="여행 중인 나라를 선택해주세요!" />
+      dispatch(
+        setToast({ type: "warning", text: "여행중인 나라를 선택하세요!" })
       );
+      return false;
     } else return true;
   };
 

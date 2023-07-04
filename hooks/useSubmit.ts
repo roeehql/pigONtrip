@@ -1,7 +1,7 @@
 import { ItemState } from "@@types/propsDataTypes";
-import Alert from "@components/atomic/Alert";
-import { addItem, saveItem, editItem } from "@store/contentsSlice";
-import { useAppDispatch } from "@store/store";
+import { addItem, saveItem, editItem, setItem } from "@data/store/contentsSlice";
+import { useAppDispatch, useAppSelector } from "@data/store/store";
+import { setToast } from "@data/store/toastSlice";
 import { FormEvent } from "react";
 
 export interface SubmitPropsState {
@@ -18,6 +18,9 @@ export const useSubmit = ({
   afterSubmitFn,
 }: SubmitPropsState) => {
   const dispatch = useAppDispatch();
+  const userName = useAppSelector((state) =>
+    state.userName.filter((user) => user.isLoggedIn === true)
+  );
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -29,13 +32,13 @@ export const useSubmit = ({
         if (action === "edit") {
           dispatch(editItem(content));
         }
-        dispatch(saveItem());
+        dispatch(saveItem(userName[0]?.name));
+        dispatch(setItem(userName[0]?.name))
         afterSubmitFn();
-        return <Alert title="🍴꿀꿀🐽" message="등록되었습니다." />;
+        dispatch(setToast({type:"success",text:"입력 성공!"}))
       }
-    } catch {
-      console.error();
-      return <Alert title="🤒죄송합니다." message="다시 시도해주세요." />;
+    } catch(error) {
+      dispatch(setToast({type:"error",text:`죄송합니다. 다시 시도해주세요. ${error}`}))
     }
   };
 

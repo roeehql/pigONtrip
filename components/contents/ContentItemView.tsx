@@ -1,9 +1,9 @@
-import { ContentItemDataState, ItemState } from "@@types/propsDataTypes";
 import Textarea from "@components/atomic/Textarea";
-import { FaStar } from "react-icons/fa";
-import { handleAmountComma } from "util/handleAmountComma";
 import DeleteConfirm from "./DeleteConfirm";
 import MiniBar from "./MiniBar";
+import { handleAmountComma } from "util/handleAmountComma";
+import { ContentItemDataState, ItemState } from "@@types/propsDataTypes";
+import { FaStar } from "react-icons/fa";
 
 const ContentItemView = ({
   item,
@@ -19,7 +19,10 @@ const ContentItemView = ({
       className="flex justify-center w-300 min-h-500 h-fit m-2 py-2 px-4 shadow bg-grey bg-opacity-10 border-2 border-solid border-grey"
     >
       {viewData.deleteConfirm ? (
-        <DeleteConfirm {...viewData} />
+        <DeleteConfirm
+          handleDelete={viewData.handleDelete}
+          cancelDelete={viewData.cancelDelete}
+        />
       ) : (
         <>
           <div className="flex flex-col w-300 py-1 font-sans text-base">
@@ -47,7 +50,14 @@ const ContentItemView = ({
               />
             </div>
           </div>
-          <MiniBar {...viewData} />
+          <MiniBar
+            onClickVerticalMenu={viewData.onClickVerticalMenu}
+            isActiveMenu={viewData.isActiveMenu}
+            menuLocation={viewData.menuLocation}
+            handleLeaveVerticalMenu={viewData.handleLeaveVerticalMenu}
+            openDeleteConfirm={viewData.openDeleteConfirm}
+            openEditForm={viewData.openEditForm}
+          />
         </>
       )}
     </div>

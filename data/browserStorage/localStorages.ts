@@ -15,3 +15,8 @@ export const removeStorage = (key:string) => {
   localStorage.removeItem(key);
   return localStorage.getItem(key) === null ? true : false;
 };
+
+
+export const resetStorage = () => {
+  localStorage.clear();
+}

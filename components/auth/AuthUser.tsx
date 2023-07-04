@@ -1,13 +1,13 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AuthForm from "./AuthForm";
-import { useAppDispatch, useAppSelector } from "@store/store";
+import { useAppDispatch, useAppSelector } from "@data/store/store";
 import {
   createUserName,
   editUserName,
   getUserList,
-  saveUserName,
-} from "@store/userNameSlice";
+} from "@data/store/userNameSlice";
+import { setToast } from "@data/store/toastSlice";
 
 const AuthUser = () => {
   const [userName, setUserName] = useState("");
@@ -31,21 +31,26 @@ const AuthUser = () => {
 
   const handleSignup = () => {
     dispatch(createUserName({ name: userName, isLoggedIn: true }));
-    dispatch(saveUserName());
-    dispatch(getUserList());
   };
 
   const handleLogin = () => {
     dispatch(editUserName({ name: userName, isLoggedIn: true }));
-    dispatch(saveUserName());
-    dispatch(getUserList());
   };
 
   const handleFormBtnClick = () => {
     checkDuplication() ? handleLogin() : handleSignup();
-    if (userList.length > 3) showMessage();
-    router.push("/home");
+    if (userList.length > 2) {
+      showMessage();
+    } else {
+      dispatch(setToast({ type: "success", text: "입장 성공!" }));
+      router.push("/home");
+    }
   };
+
+  useEffect(() => {
+    dispatch(getUserList());
+    if (userList.some((user) => user.isLoggedIn === true)) router.push("/home");
+  }, [dispatch]);
 
   const signUpPropsData = {
     userName,

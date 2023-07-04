@@ -1,22 +1,22 @@
-import { useEffect } from "react";
 import dynamic from "next/dynamic";
 
-import { useAppDispatch, useAppSelector } from "@store/store";
-import { getItem } from "@store/contentsSlice";
+import { useAppDispatch, useAppSelector } from "@data/store/store";
 import Paginate from "./Paginate";
 import usePaginate from "./hooks/usePaginate";
+import { useEffect } from "react";
+import { setItem } from "@data/store/contentsSlice";
+import TotalAmout from "./TotalAmout";
 
-const ContentItem = dynamic(() => import("./ContentItem"), { suspense: true });
+const ContentItem = dynamic(() => import("./ContentItem"));
 
 const Contents = () => {
-  const contentsList = useAppSelector((state) => state.contentsList);
   const dispatch = useAppDispatch();
+  const contentsList = useAppSelector((state) => state.contentsList);
+  const userName = useAppSelector((state) =>
+    state.userName.filter((user) => user.isLoggedIn === true)
+  );
   const { handlePage, itemFirstIndex, itemLastIndex, pageNumber, currentPage } =
     usePaginate({ listLength: contentsList.length });
-
-  useEffect(() => {
-    dispatch(getItem());
-  }, [dispatch]);
 
   const paginateData = {
     listLength: contentsList.length,
@@ -24,8 +24,16 @@ const Contents = () => {
     pageNumber,
     currentPage,
   };
+
+  useEffect(() => {
+    dispatch(setItem(userName[0]?.name));
+  }, [dispatch]);
+
   return (
     <div className="flex flex-col justify-center items-center w-screen min-h-80 mt-4 pb-120 border-2 border-b-0 border-x-0 border-t-black">
+      <TotalAmout
+        total={contentsList.reduce((acc, curr) => acc + curr.exchangedMoney, 0)}
+      />
       {contentsList?.slice(itemFirstIndex, itemLastIndex).map((item) => (
         <ContentItem key={item.id} item={item} />
       ))}
