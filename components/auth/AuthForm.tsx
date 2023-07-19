@@ -20,7 +20,7 @@ const AuthForm = ({
 }) => {
   return (
     <div className="flex flex-col justify-center items-center w-full min-h-screen h-full">
-      <div className="flex flex-col p-6 bg-white rounded-xl shadow">
+      <div className="flex flex-col h-300 p-6 bg-white rounded-xl shadow">
         <h1 className="mb-4 tracking-tighter">{title}</h1>
         <div className="h-10">
           {message && (
@@ -37,22 +37,20 @@ const AuthForm = ({
           required={true}
           readOnly={false}
         />
-        <div className="h-5">
+        <div className=" h-6">
           {userName.length > 15 && (
             <Small message="별명을 15자 이하로 정해주세요." />
           )}
           {userName === "" && <Small message="별명을 입력해주세요." />}
         </div>
-        <div className="h-24">
-          {userName !== "" && userName.length < 16 && (
-            <Button
-              type="submit"
-              text={buttonText}
-              onClick={handleFormBtnClick}
-              large={true}
-            />
-          )}
-        </div>
+        {userName !== "" && userName.length < 16 && (
+          <Button
+            type="submit"
+            text={buttonText}
+            onClick={handleFormBtnClick}
+            large={true}
+          />
+        )}
       </div>
     </div>
   );
