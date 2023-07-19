@@ -1,6 +1,8 @@
+import { HYDRATE } from "next-redux-wrapper";
+import { handleStorage } from "@data/browserStorage/localStorages";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { USERNAME } from "data/browserStorage/keys.constant";
-import { getStorage, setStorage } from "data/browserStorage/localStorages";
+import { AppState } from "./store";
 
 export interface UserNameSliceState {
     name : string;
@@ -15,18 +17,17 @@ const userNameSlice = createSlice({
    reducers:{
     createUserName: (state, action:PayloadAction<UserNameSliceState>) => {
         state.push({ ...action.payload });
-        setStorage(USERNAME, JSON.stringify(state));
+        handleStorage.setStorage(USERNAME, JSON.stringify(state));
       },
     saveUserName: (state) => {
-      setStorage(USERNAME, JSON.stringify(state));
+      handleStorage.setStorage(USERNAME, JSON.stringify(state));
       },
     getUserList: (state) => {
         state = [];
-        if(getStorage(USERNAME) !== "no data"){
-            const parsedUserList = getStorage(USERNAME);
-            [...parsedUserList].forEach((user) => {
-                state.push({ ...user });
-            });
+        const getUserList:string | "no data" = handleStorage.getStorage(USERNAME);
+        if(getUserList !== "no data"){
+          const parsedUserList = JSON.parse(getUserList)          
+          state = [...parsedUserList]
         }
         return state;
       },
@@ -40,7 +41,7 @@ const userNameSlice = createSlice({
     editUserName : (state, action:PayloadAction<UserNameSliceState>) => {
         let index = state.findIndex((user) => user.name === action.payload.name);
         state.splice(index, 1, action.payload);
-        setStorage(USERNAME, JSON.stringify(state));
+        handleStorage.setStorage(USERNAME, JSON.stringify(state));
         return state;
     },
    },
@@ -48,4 +49,7 @@ const userNameSlice = createSlice({
 
 export default userNameSlice.reducer;
 export const {editUserName ,resetUserName, removeUserName , getUserList, saveUserName , createUserName} = userNameSlice.actions;
-export const selectGetSession = (state: UserNameSliceState) => state;
+export const selectUser = (state: AppState) => state.userName
+
+
+

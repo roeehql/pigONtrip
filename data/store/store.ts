@@ -1,19 +1,23 @@
 import {configureStore} from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { createWrapper } from "next-redux-wrapper";
 import contentsSlice from './contentsSlice';
 import userNameSlice from './userNameSlice';
 import toastSlice from './toastSlice';
 
-const store = configureStore({
+const store = () => configureStore({
   reducer:{
     userName : userNameSlice,
     contentsList : contentsSlice,
     toast : toastSlice
   },
-});
-export default store;
+  devTools: true,
+  },
+);
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch: () => AppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+const wrapper = createWrapper(store)
+
+export type AppStore = ReturnType<typeof store>;
+export type AppState = ReturnType<AppStore["getState"]>;
+
+export default wrapper

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './store'
+import { AppState } from './store';
 
 export interface ToastState {
     type: "success" | "error" | "warning" | "info";
@@ -26,7 +26,7 @@ export const toastSlice = createSlice({
     removeToast : (state) => {
         state.shift()
         return state
-      },
+    },
     clearToast: (state, action: PayloadAction<number>)=>{
        return state.filter((toast)=> toast.id !== action.payload)
     }
@@ -35,6 +35,6 @@ export const toastSlice = createSlice({
 
 export const { setToast , clearToast, removeToast} = toastSlice.actions
 
-export const getToast = (state: RootState) => state.toast
+export const getToast = (state:AppState) => state.toast
 
 export default toastSlice.reducer
