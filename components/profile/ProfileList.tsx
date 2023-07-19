@@ -1,41 +1,29 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useAppSelector, useAppDispatch } from "@data/store/store";
-import { editUserName, getUserList } from "@data/store/userNameSlice";
-import { setItem } from "@data/store/contentsSlice";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { editUserName, selectUser } from "@data/store/userNameSlice";
 import Confirm from "@components/atomic/Confirm";
+import { useGetUserName } from "@hooks/useGetUserName";
 
 const ProfileList = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedUserName, setSelectedUserName] = useState("");
-  const profileList = useAppSelector((state) => state.userName);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
+  const profileList = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const { userName } = useGetUserName();
 
-  const handleAnotherNameClick = (userName: string) => {
-    setSelectedUserName(userName);
+  const handleAnotherNameClick = (user: string) => {
+    setSelectedUserName(user);
     setShowConfirm(true);
   };
 
   const handleProfileChange = () => {
-    setShowConfirm(false);
-    dispatch(editUserName({ name: getCurrentUser(), isLoggedIn: false }));
+    dispatch(editUserName({ name: userName, isLoggedIn: false }));
     dispatch(editUserName({ name: selectedUserName, isLoggedIn: true }));
-    dispatch(setItem(selectedUserName));
-    router.push("/home");
+    setShowConfirm(false);
   };
-
-  const getCurrentUser = () => {
-    const user = profileList.filter((user) => user.isLoggedIn === true);
-    return user[0].name;
-  };
-
-  useEffect(() => {
-    dispatch(getUserList());
-  }, [dispatch]);
 
   return (
-    <>
+    <div className="flex justify-center w-full min-h-fit">
       <ul className="flex flex-row justify-center items-center w-fit min-h-20 h-fit">
         {profileList.map((user) => (
           <li
@@ -59,13 +47,14 @@ const ProfileList = () => {
       </ul>
       {showConfirm && (
         <Confirm
+          style="list"
           text={"별명을 전환하시겠습니까?"}
           positiveAnswer={"네"}
           handleConfirmClick={handleProfileChange}
           onCancelClick={() => setShowConfirm(false)}
         />
       )}
-    </>
+    </div>
   );
 };
 
