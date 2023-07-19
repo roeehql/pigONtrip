@@ -1,7 +1,7 @@
-import { InputFormState } from "@@types/propsDataTypes";
 import Button from "@components/atomic/Button";
 import Input from "@components/atomic/Input";
 import StarRate from "./StarRate";
+import { InputFormState } from "@@types/WriteTypes";
 
 const InputForm = ({
   data,
