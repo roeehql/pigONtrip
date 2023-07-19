@@ -1,8 +1,9 @@
-import { ItemState } from "@@types/propsDataTypes";
-import { addItem, saveItem, editItem, setItem } from "@data/store/contentsSlice";
-import { useAppDispatch, useAppSelector } from "@data/store/store";
-import { setToast } from "@data/store/toastSlice";
 import { FormEvent } from "react";
+import { useDispatch } from "react-redux";
+import { addItem, editItem, setItem } from "@data/store/contentsSlice";
+import { setToast } from "@data/store/toastSlice";
+import { ItemState } from "@@types/ContentsTypes";
+import { useGetUserName } from "./useGetUserName";
 
 export interface SubmitPropsState {
   content: ItemState;
@@ -17,29 +18,22 @@ export const useSubmit = ({
   typeCheckFn,
   afterSubmitFn,
 }: SubmitPropsState) => {
-  const dispatch = useAppDispatch();
-  const userName = useAppSelector((state) =>
-    state.userName.filter((user) => user.isLoggedIn === true)
-  );
+  const dispatch = useDispatch();
+  const {userName} = useGetUserName()
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
       if (typeCheckFn()) {
         if (action === "write") {
-          dispatch(addItem(content));
+          dispatch(addItem({userName, ...content}));
         }
         if (action === "edit") {
-          dispatch(editItem(content));
+          dispatch(editItem({userName,...content}));
         }
-        dispatch(saveItem(userName[0]?.name));
-        dispatch(setItem(userName[0]?.name))
-        afterSubmitFn();
+        dispatch(setItem())
         dispatch(setToast({type:"success",text:"입력 성공!"}))
+        afterSubmitFn();
       }
-    } catch(error) {
-      dispatch(setToast({type:"error",text:`죄송합니다. 다시 시도해주세요. ${error}`}))
-    }
   };
 
   return { onSubmit };

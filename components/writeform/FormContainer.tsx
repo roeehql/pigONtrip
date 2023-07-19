@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { useAppDispatch } from "@data/store/store";
+import { useDispatch } from "react-redux";
 import { setToast } from "@data/store/toastSlice";
 import { useHandleInput } from "@hooks/useHandleText";
 import { useSubmit } from "@hooks/useSubmit";
 import { useGetCurrency } from "./hooks/useGetCurrency";
-import { FormContainerState } from "@@types/propsDataTypes";
 
-import InputForm from "./InputForm";
+import InputForm from "./view/InputFormView";
+import { FormContainerState } from "@@types/WriteTypes";
 
 const FormContainer = (data: FormContainerState) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [rating, setrating] = useState(5);
   const [exchangedMoney, setExchangedMoney] = useState(0);
   const {
@@ -52,6 +52,7 @@ const FormContainer = (data: FormContainerState) => {
     setPlace("장소");
     data.setFirstPage();
   };
+
   const { onSubmit } = useSubmit({
     content: {
       id: uuidv4(),

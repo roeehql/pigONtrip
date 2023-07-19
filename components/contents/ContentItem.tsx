@@ -1,27 +1,28 @@
 import { useState, MouseEvent } from "react";
 
-import { useAppDispatch, useAppSelector } from "@data/store/store";
-import { removeItem, saveItem, setItem } from "@data/store/contentsSlice";
+import { setToast } from "@data/store/toastSlice";
+import { useDispatch } from "react-redux";
+import {
+  ContentsSliceState,
+  removeItem,
+  setItem,
+} from "@data/store/contentsSlice";
 
-import { ItemState } from "@@types/propsDataTypes";
-import ContentItemView from "./ContentItemView";
+import ContentItemView from "./view/ContentItemView";
 import EditItem from "./EditItem";
 
-const ContentItem = ({ item }: { item: ItemState }) => {
-  const dispatch = useAppDispatch();
+const ContentItem = ({ item }: { item: ContentsSliceState }) => {
+  const dispatch = useDispatch();
   const [isActiveMenu, setIsActiveMenu] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [menuLocation, setMenuLocation] = useState({ x: 0, y: 0 });
   const [onEdit, setOnEdit] = useState(false);
-  const userName = useAppSelector((state) =>
-    state.userName.filter((user) => user.isLoggedIn === true)
-  );
 
   const handleDelete = (id: string) => {
     setDeleteConfirm(false);
     dispatch(removeItem(id));
-    dispatch(saveItem(userName[0].name));
-    dispatch(setItem(userName[0].name));
+    dispatch(setItem());
+    dispatch(setToast({ type: "success", text: "삭제되었습니다." }));
   };
 
   const openEditForm = () => {
