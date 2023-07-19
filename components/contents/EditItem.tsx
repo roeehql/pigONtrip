@@ -5,9 +5,9 @@ import useHandleSelect from "@components/writeform/hooks/useHandleSelect";
 import { useGetCurrency } from "@components/writeform/hooks/useGetCurrency";
 import { useSubmit } from "@hooks/useSubmit";
 
-import { EditDataState, ItemState } from "@@types/propsDataTypes";
+import { EditDataState, ItemState } from "@@types/ContentsTypes";
 
-import ItemEditFormView from "./ItemEditFormView";
+import EditFormView from "./view/EditFormView";
 
 const EditItem = ({ data, item }: { data: EditDataState; item: ItemState }) => {
   const [rating, setrating] = useState(item.star);
@@ -87,7 +87,7 @@ const EditItem = ({ data, item }: { data: EditDataState; item: ItemState }) => {
     setEditExchangedMoney(Math.round(exchangeRate * parseInt(editFoodExpense)));
   }, [exchangeRate, editFoodExpense]);
 
-  return <ItemEditFormView {...editFormData} />;
+  return <EditFormView {...editFormData} />;
 };
 
 export default EditItem;

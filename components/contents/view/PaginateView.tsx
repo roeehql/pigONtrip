@@ -1,4 +1,4 @@
-import { PaginateDataState } from "@@types/propsDataTypes";
+import { PaginateDataState } from "@@types/ContentsTypes";
 
 const Paginate = ({ paginateData }: PaginateDataState) => {
   return (

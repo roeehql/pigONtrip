@@ -1,11 +1,11 @@
-import StarRate from "@components/writeform/StarRate";
 import { travelDestination } from "data/jsonData/travelDestination";
-import { getToday } from "util/getToday";
-import { EditFormDataState } from "@@types/propsDataTypes";
 import Textarea from "@components/atomic/Textarea";
-import FormButton from "../atomic/FormButton";
+import FormButton from "@components/atomic/FormButton";
+import StarRate from "@components/writeform/view/StarRate";
+import { getToday } from "util/getToday";
+import { EditFormDataState } from "@@types/ContentsTypes";
 
-const ItemEditFormView = (editFormData: EditFormDataState) => {
+const EditFormView = (editFormData: EditFormDataState) => {
   const { viewData } = editFormData;
 
   return (
@@ -77,4 +77,4 @@ const ItemEditFormView = (editFormData: EditFormDataState) => {
   );
 };
 
-export default ItemEditFormView;
+export default EditFormView;
