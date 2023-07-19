@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "@data/store/store";
-import { removeToast } from "@data/store/toastSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getToast, removeToast } from "@data/store/toastSlice";
 import Toast from "./Toast";
 
 const ToastContainer = () => {
-  const toasts = useAppSelector((state) => state.toast);
-  const dispatch = useAppDispatch();
+  const toasts = useSelector(getToast);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,12 +15,12 @@ const ToastContainer = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [toasts]);
+  }, [toasts, dispatch]);
+
   return (
     <>
-      {toasts.map((toast) => (
-        <Toast key={toast.id} toast={toast} />
-      ))}
+      {toasts.length > 0 &&
+        toasts.map((toast) => <Toast key={toast.id} toast={toast} />)}
     </>
   );
 };

@@ -5,19 +5,27 @@ const Confirm = ({
   positiveAnswer,
   handleConfirmClick,
   onCancelClick,
+  style,
 }: {
   text: string;
   positiveAnswer: string;
   handleConfirmClick: () => void;
   onCancelClick: () => void;
+  style?: "list";
 }) => {
   return (
-    <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-50">
-      <div className="flex flex-col min-w-1/2 h-fit p-6 bg-white rounded shadow">
+    <div className="absolute inset-x-0 top-80 flex justify-center items-start z-50">
+      <div
+        className={
+          style === "list"
+            ? "flex justify-start items-center px-4 bg-white"
+            : "flex flex-col min-w-1/2 h-fit p-6 bg-white rounded shadow"
+        }
+      >
         <h1 className="w-full text-lg tracking-tight text-center mb-4">
           {text}
         </h1>
-        <div>
+        <div className="flex justify-center items-center">
           <Button
             type="button"
             text={positiveAnswer}

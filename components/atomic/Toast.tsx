@@ -1,18 +1,18 @@
-import { useAppDispatch } from "@data/store/store";
+import { useDispatch } from "react-redux";
 import { ToastSliceState, clearToast } from "@data/store/toastSlice";
 
 const Toast = ({ toast }: { toast: ToastSliceState }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const bgColor = {
-    success: "sky-blue",
-    error: "red-light",
-    warning: "yellow",
-    info: "white",
+    success: "bg-sky-blue",
+    error: "bg-red-light",
+    warning: "bg-yellow",
+    info: "bg-white",
   };
 
   return (
     <div
-      className={`fixed top-16 right-4 flex flex-col justify-center items-center min-w-60 w-fit h-fit my-4 p-2 rounded-md shadow z-50 ${
+      className={`fixed top-65 right-4 flex flex-col justify-center items-center min-w-200 w-fit h-fit my-4 p-2 rounded-md shadow z-50 ${
         bgColor[toast.type]
       }`}
     >
@@ -21,13 +21,13 @@ const Toast = ({ toast }: { toast: ToastSliceState }) => {
           {toast.type}
         </h4>
         <button
-          className="px-3 border-none bg-transparent text-base text-white"
+          className="px-3 border-none bg-transparent text-base text-black"
           onClick={() => dispatch(clearToast(toast.id))}
         >
           X
         </button>
       </div>
-      <p className={`text-base text-white ${bgColor[toast.type]}`}>
+      <p className={`text-base text-black ${bgColor[toast.type]}`}>
         {toast.text}
       </p>
     </div>
