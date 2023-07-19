@@ -1,17 +1,4 @@
-import { UserNameSliceState } from "@data/store/userNameSlice";
 import { FormEvent , ChangeEvent , MouseEvent} from "react";
-
-export interface MyPageDataState {
-    data: {
-      isOnEdit: boolean;
-      userName: UserNameSliceState[];
-      editName: string;
-      onEditNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
-      handleEditUserName: () => void;
-      onCancelButtonClick: () => void;
-      onEditButtonClick: () => void;
-    }
-}
 
 export interface ItemState {
     id: string;
@@ -41,14 +28,13 @@ export interface ItemState {
 
   export interface PaginateDataState {
     paginateData: {
-      listLength: number;
       handlePage: (page: number | "이전" | "다음") => void;
       pageNumber: number;
       currentPage: number;
     };
   }
 
-  //using at "Form-Components"
+  //using at "EditForm-Components"
 
   export interface OnChangeState {
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -82,23 +68,3 @@ export interface ItemState {
       onEditCancelClick: () => void;
 }
 
-export interface InputFormState {
-  food: string;
-  place: string;
-  rating: number;
-  foodExpense: string;
-  exchangedMoney: number;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  onFoodChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  onPlaceChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  onRating: (rate: number) => void;
-  onFoodExpenseChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-export interface FormContainerState {
-  country : string,
-  currencyCode : string,
-  tripDate: string,
-  setFirstPage : ()=> void,
-  setSecondPage : ()=>void,
-}
