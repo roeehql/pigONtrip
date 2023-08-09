@@ -29,7 +29,7 @@ const contentsSlice = createSlice({
     },
     setItem : (state)=>{
         state = []
-        const loadedContents:ContentsSliceState[] | "no data" = handleStorage.getStorage(CONTENTS);
+        const loadedContents:ContentsSliceState[] | "no data" = JSON.parse(handleStorage.getStorage(CONTENTS));
         if (loadedContents !== "no data") {
             loadedContents.forEach((item)=>state.push(item));
           };
@@ -44,6 +44,10 @@ const contentsSlice = createSlice({
         state =  state.filter((item)=> item.id !== action.payload);
         handleStorage.setStorage(CONTENTS, state);        
     },
+    signOutItem : (state,action:PayloadAction<string>)=>{
+        state =  state.filter((item)=> item.userName !== action.payload);
+        handleStorage.setStorage(CONTENTS, state);  
+    },
     saveItem : (state) => {
         handleStorage.setStorage(CONTENTS, state);        
     },
@@ -55,5 +59,5 @@ const contentsSlice = createSlice({
 });
 
 export default contentsSlice.reducer;
-export const {addItem,removeItem, setItem, saveItem , resetItem , editItem} = contentsSlice.actions;
+export const {addItem,removeItem, setItem, saveItem , signOutItem, resetItem , editItem} = contentsSlice.actions;
 export const selectContents = (state:AppState) => state.contentsList

@@ -1,22 +1,22 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createUserName,
-  editUserName,
-  selectUser,
-} from "@data/store/userNameSlice";
 import { setToast } from "@data/store/toastSlice";
 import AuthForm from "./AuthForm";
-import { useGetUserName } from "@hooks/useGetUserName";
-import { setItem } from "@data/store/contentsSlice";
+import { handleStorage } from "@data/browserStorage/localStorages";
+import { USERLIST, USERNAME } from "@data/browserStorage/keys.constant";
+import {
+  createUserName,
+  selectUser,
+  setUserList,
+} from "@data/store/userListSlice";
+import { saveUserName } from "@data/store/userNameSlice";
 
 const AuthUser = () => {
   const [userName, setUserName] = useState("");
   const [message, setMessage] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-  const { isUserLoggedIn } = useGetUserName();
   const userList = useSelector(selectUser);
 
   const showMessage = () => {
@@ -27,35 +27,38 @@ const AuthUser = () => {
   };
 
   const checkDuplication = () => {
+    dispatch(setUserList());
     return userList.length === 0
       ? false
-      : userList.some((user) => user.name === userName);
+      : userList.some((user) => user === userName);
   };
 
   const handleSignup = () => {
-    dispatch(createUserName({ name: userName.trim(), isLoggedIn: true }));
+    dispatch(createUserName(userName));
+    handleStorage.setStorage(USERNAME, userName);
+    dispatch(saveUserName(userName));
   };
 
   const handleLogin = () => {
-    dispatch(editUserName({ name: userName.trim(), isLoggedIn: true }));
+    handleStorage.setStorage(USERNAME, userName);
+    dispatch(saveUserName(userName));
   };
 
   const handleFormBtnClick = () => {
-    checkDuplication() ? handleLogin() : handleSignup();
     if (userList.length > 2) {
       showMessage();
     } else {
-      dispatch(setItem());
+      checkDuplication() ? handleLogin() : handleSignup();
       dispatch(setToast({ type: "success", text: "입장 성공!" }));
       router.push("/home");
     }
   };
 
   useEffect(() => {
-    if (isUserLoggedIn) {
+    if (handleStorage.getContentsStorage(USERNAME)) {
       router.push("/home");
     }
-  }, [router, isUserLoggedIn]);
+  }, [router]);
 
   const signUpPropsData = {
     userName,
@@ -65,6 +68,9 @@ const AuthUser = () => {
     handleInputChange: (e: ChangeEvent<HTMLInputElement>) =>
       setUserName(e.target.value),
     handleFormBtnClick: () => handleFormBtnClick(),
+    handleEnter: (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") handleFormBtnClick();
+    },
   };
 
   return <AuthForm {...signUpPropsData} />;

@@ -1,24 +1,30 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editUserName, selectUser } from "@data/store/userNameSlice";
 import Confirm from "@components/atomic/Confirm";
-import { useGetUserName } from "@hooks/useGetUserName";
+import { handleStorage } from "@data/browserStorage/localStorages";
+import { USERNAME } from "@data/browserStorage/keys.constant";
+import { selectUser } from "@data/store/userListSlice";
+import { saveUserName } from "@data/store/userNameSlice";
 
-const ProfileList = () => {
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [selectedUserName, setSelectedUserName] = useState("");
-  const profileList = useSelector(selectUser);
+const ProfileList = ({
+  selectedUserName,
+  handleSetUSerName,
+}: {
+  selectedUserName: string;
+  handleSetUSerName: (userName: string) => void;
+}) => {
   const dispatch = useDispatch();
-  const { userName } = useGetUserName();
+  const [showConfirm, setShowConfirm] = useState(false);
+  const profileList = useSelector(selectUser);
 
   const handleAnotherNameClick = (user: string) => {
-    setSelectedUserName(user);
     setShowConfirm(true);
+    handleSetUSerName(user);
   };
 
   const handleProfileChange = () => {
-    dispatch(editUserName({ name: userName, isLoggedIn: false }));
-    dispatch(editUserName({ name: selectedUserName, isLoggedIn: true }));
+    handleStorage.setStorage(USERNAME, selectedUserName);
+    dispatch(saveUserName(selectedUserName));
     setShowConfirm(false);
   };
 
@@ -27,19 +33,19 @@ const ProfileList = () => {
       <ul className="flex flex-row justify-center items-center w-fit min-h-20 h-fit">
         {profileList.map((user) => (
           <li
-            key={user.name}
+            key={user}
             className="px-1 py-2 text-base tracking-tight text-white cursor-pointer"
           >
-            {user.isLoggedIn ? (
+            {user === selectedUserName ? (
               <button className="px-2 py-1 border-2 border-black bg-white tracking-tighter text-red">
-                ✅{user.name}
+                ✅{user}
               </button>
             ) : (
               <button
-                onClick={() => handleAnotherNameClick(user.name)}
+                onClick={() => handleAnotherNameClick(user)}
                 className="px-2 py-1 border-2 border-black bg-stone tracking-tighter cursor-pointer"
               >
-                {user.name}
+                {user}
               </button>
             )}
           </li>

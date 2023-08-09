@@ -1,20 +1,17 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-import { editUserName } from "@data/store/userNameSlice";
-import { useGetUserName } from "@hooks/useGetUserName";
 import Button from "@components/atomic/Button";
 import Confirm from "@components/atomic/Confirm";
+import { handleStorage } from "@data/browserStorage/localStorages";
+import { USERNAME } from "@data/browserStorage/keys.constant";
 
 const Logout = () => {
   const [showConfirm, setShowConfirm] = useState(false);
-  const { userName } = useGetUserName();
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleLogout = () => {
     setShowConfirm(false);
-    dispatch(editUserName({ name: userName, isLoggedIn: false }));
+    handleStorage.removeStorage(USERNAME);
     router.push("/");
   };
 
@@ -31,6 +28,7 @@ const Logout = () => {
       <Button
         text={"로그아웃"}
         large={false}
+        ariaLabel="로그아웃하기"
         type={"button"}
         onClick={() => setShowConfirm(true)}
       />

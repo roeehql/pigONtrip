@@ -1,9 +1,9 @@
 import { FormEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem, editItem, setItem } from "@data/store/contentsSlice";
 import { setToast } from "@data/store/toastSlice";
 import { ItemState } from "@@types/ContentsTypes";
-import { useGetUserName } from "./useGetUserName";
+import { selectUserName } from "@data/store/userNameSlice";
 
 export interface SubmitPropsState {
   content: ItemState;
@@ -19,7 +19,7 @@ export const useSubmit = ({
   afterSubmitFn,
 }: SubmitPropsState) => {
   const dispatch = useDispatch();
-  const {userName} = useGetUserName()
+  const userName = useSelector(selectUserName)
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

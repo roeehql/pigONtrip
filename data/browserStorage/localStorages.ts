@@ -7,7 +7,7 @@ export const handleStorage = {
       if(data === null || data === undefined){
         return data = "no data";
       }
-    return JSON.parse(data);
+    return data;
   },
   getContentsStorage : (key:string)=>{
     return localStorage.getItem(key)
