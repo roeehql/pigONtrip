@@ -37,7 +37,28 @@ const StarRate = ({ count, rating, color, onRating }: StarRatePropsState) => {
       ));
   }, [count, rating, hoverRating]);
 
-  return <div className="flex pb-3">{starRating}</div>;
+  return (
+    <div className="flex flex-col pb-3">
+      <div className="flex justify-center pb-3">{starRating}</div>
+      <div>
+        {Array(count)
+          .fill(0)
+          .map((_, i) => i + 1)
+          .map((idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => onRating(idx)}
+              className={`px-2 mx-1 border-2 border-yellow ${
+                idx === rating && "bg-red-light"
+              }  hover:bg-yellow cursor-pointer`}
+            >
+              {idx}
+            </button>
+          ))}
+      </div>
+    </div>
+  );
 };
 
 export default StarRate;

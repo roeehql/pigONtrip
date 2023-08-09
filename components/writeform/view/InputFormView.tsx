@@ -45,6 +45,7 @@ const InputForm = ({
           placeholder={"ex) 500엔 -> 500"}
           name={"foodExpense"}
           value={data.foodExpense}
+          onEnter={(e) => e.key === "Enter" && data.onSubmit}
           onChange={data.onFoodExpenseChange}
           required={true}
         />
@@ -61,12 +62,19 @@ const InputForm = ({
       </div>
       <div className="flex flex-row">
         <Button
+          ariaLabel="날짜 선택화면으로 이동하기기"
           text={"이전"}
           large={true}
           type={"button"}
           onClick={changePage}
         />
-        <Button text={"입력"} color="red" large={true} type={"submit"} />
+        <Button
+          text={"입력"}
+          ariaLabel="입력 하기"
+          color="red"
+          large={true}
+          type={"submit"}
+        />
       </div>
     </form>
   );

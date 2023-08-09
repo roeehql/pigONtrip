@@ -7,6 +7,7 @@ interface InputTypes {
   labelText: string;
   placeholder?: string;
   readOnly?: boolean;
+  onEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
   required = true,
   labelText,
   readOnly = false,
+  onEnter,
 }: InputTypes) => {
   return (
     <>
@@ -36,6 +38,7 @@ const Input = ({
             placeholder={placeholder}
             required={required}
             readOnly={readOnly}
+            onKeyUp={onEnter}
           />
         )}
         {type === "number" && (
@@ -43,6 +46,7 @@ const Input = ({
             id={name}
             type="number"
             name={name}
+            onKeyUp={onEnter}
             value={value}
             onChange={onChange}
             className="px-4 py-1 m-3 outline-red-light rounded-lg border-2 border-solid border-yellow"

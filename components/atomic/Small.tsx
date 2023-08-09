@@ -6,7 +6,10 @@ const Small = ({
   plusStyle?: string;
 }) => {
   return (
-    <small className={`w-full h-fit text-sm text-red ${plusStyle}`}>
+    <small
+      role="alert"
+      className={`w-full h-fit text-sm text-red ${plusStyle}`}
+    >
       {message}
     </small>
   );

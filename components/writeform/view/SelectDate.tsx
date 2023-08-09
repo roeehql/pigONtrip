@@ -1,7 +1,12 @@
-import { OnChangeState } from "@@types/WriteTypes";
 import { getToday, getYesterDay } from "util/getToday";
 
-const SelectDate = ({ onChange }: OnChangeState) => {
+const SelectDate = ({
+  onChange,
+  handleOnEnter,
+}: {
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleOnEnter: () => void;
+}) => {
   return (
     <div className="flex flex-col h-full justify-center">
       <label
@@ -12,6 +17,7 @@ const SelectDate = ({ onChange }: OnChangeState) => {
           name="date"
           id="yesterday"
           onChange={onChange}
+          onKeyUp={handleOnEnter}
           value={getYesterDay()}
         />
         <h4 className="py-1 px-3 font-medium text-lg rounded-xl">
@@ -27,6 +33,7 @@ const SelectDate = ({ onChange }: OnChangeState) => {
           id="today"
           onChange={onChange}
           value={getToday()}
+          onKeyUp={handleOnEnter}
           checked
         />
         <h4 className="py-1 px-3 font-medium text-lg rounded-xl">

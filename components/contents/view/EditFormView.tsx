@@ -66,9 +66,10 @@ const EditFormView = (editFormData: EditFormDataState) => {
         />
       </div>
       <div className="flex justify-around items-center">
-        <FormButton type="submit" text="수정" />
+        <FormButton type="submit" ariaLabel="수정하기" text="수정" />
         <FormButton
           type="button"
+          ariaLabel="삭제하기"
           text="삭제"
           onClick={editFormData.onEditCancelClick}
         />

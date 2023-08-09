@@ -28,6 +28,7 @@ const WriteLayout = () => {
         <SelectCountryPage
           onNextClick={() => setPage(2)}
           country={country}
+          handleOnEnter={() => setPage(2)}
           handleCountryClick={handleCountryClick}
         />
       )}
@@ -35,6 +36,7 @@ const WriteLayout = () => {
         <SelectDatePage
           onPrevClick={() => setPage(1)}
           onNextClick={() => setPage(3)}
+          handleOnEnter={() => setPage(3)}
           handleDateClick={handleDateClick}
         />
       )}

@@ -14,7 +14,11 @@ const Confirm = ({
   style?: "list";
 }) => {
   return (
-    <div className="absolute inset-x-0 top-80 flex justify-center items-start z-50">
+    <div
+      role="alertdialog"
+      aria-modal="true"
+      className="absolute inset-x-0 top-80 flex justify-center items-start z-50"
+    >
       <div
         className={
           style === "list"
@@ -28,6 +32,7 @@ const Confirm = ({
         <div className="flex justify-center items-center">
           <Button
             type="button"
+            ariaLabel={positiveAnswer}
             text={positiveAnswer}
             onClick={handleConfirmClick}
             large={false}
@@ -35,6 +40,7 @@ const Confirm = ({
           <Button
             type="button"
             text="취소"
+            ariaLabel="취소"
             large={false}
             onClick={onCancelClick}
           />

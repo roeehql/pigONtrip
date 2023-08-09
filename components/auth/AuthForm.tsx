@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 import Input from "../atomic/Input";
 import Button from "../atomic/Button";
 import Small from "../atomic/Small";
@@ -10,6 +10,7 @@ const AuthForm = ({
   title,
   handleInputChange,
   handleFormBtnClick,
+  handleEnter,
 }: {
   userName: string;
   message: boolean;
@@ -17,6 +18,7 @@ const AuthForm = ({
   title: string;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleFormBtnClick: () => void;
+  handleEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <div className="flex flex-col justify-center items-center w-full min-h-screen h-full">
@@ -32,10 +34,11 @@ const AuthForm = ({
           name="username"
           value={userName}
           onChange={handleInputChange}
-          placeholder="돼지짱"
+          placeholder="ex)돼지짱"
           labelText="별명"
           required={true}
           readOnly={false}
+          onEnter={handleEnter}
         />
         <div className=" h-6">
           {userName.length > 15 && (
@@ -46,6 +49,7 @@ const AuthForm = ({
         {userName !== "" && userName.length < 16 && (
           <Button
             type="submit"
+            ariaLabel="입장하기"
             text={buttonText}
             onClick={handleFormBtnClick}
             large={true}
